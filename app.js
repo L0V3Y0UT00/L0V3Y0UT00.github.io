@@ -13,6 +13,18 @@ class SharedChat {
     this.chatContainer = document.createElement('div');
     this.chatContainer.className = 'flex flex-col h-[500px]';
     
+    // Header with user ID
+    this.header = document.createElement('div');
+    this.header.className = 'bg-blue-500 text-white p-4 flex justify-between items-center';
+    this.header.innerHTML = `
+      <div class="flex items-center gap-2">
+        <i data-lucide="bot" class="w-5 h-5"></i>
+        <span class="font-bold">Shared ChatGPT</span>
+      </div>
+      <span class="text-sm">User: ${this.userId.slice(0, 8)}</span>
+    `;
+    this.chatContainer.appendChild(this.header);
+    
     this.messagesContainer = document.createElement('div');
     this.messagesContainer.className = 'flex-1 overflow-y-auto p-4 space-y-4';
     this.chatContainer.appendChild(this.messagesContainer);
@@ -90,6 +102,7 @@ class SharedChat {
         role: 'assistant'
       });
     } catch (error) {
+      console.error('Error:', error);
       this.addMessage({
         id: (Date.now() + 1).toString(),
         content: 'Sorry, I encountered an error. Please try again later.',
@@ -114,7 +127,7 @@ class SharedChat {
       messageDiv.className = `flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`;
       
       const contentDiv = document.createElement('div');
-      contentDiv.className = `max-w-[80%] rounded-lg px-4 py-2 flex items-start gap-2 message-${msg.role}`;
+      contentDiv.className = `max-w-[80%] rounded-lg px-4 py-2 flex items-start gap-2 ${msg.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-800'}`;
       
       const icon = document.createElement('i');
       icon.setAttribute('data-lucide', msg.role === 'user' ? 'user' : 'bot');
@@ -170,3 +183,52 @@ class SharedChat {
 document.addEventListener('DOMContentLoaded', () => {
   new SharedChat();
 });
+3. styles.css
+/* Base styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Loading animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.bounce-dot {
+  animation: bounce 0.6s infinite alternate;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  #chat-app {
+    height: 80vh;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
