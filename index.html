@@ -3,330 +3,444 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premium Typing Tutor</title>
+  <title>Typing Tutor</title>
   <style>
-    /* Tailwind-like CSS */
+    /* Global Styles */
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      line-height: 1.5;
-      background-color: #f3f4f6;
-      color: #111827;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
     }
+    
+    /* Layout */
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 1rem;
+      padding: 20px;
     }
-    .border-purple {
-      border: 4px solid #7c3aed;
+    
+    .main-wrapper {
+      border: 4px solid #8a2be2;
+      border-radius: 10px;
+      background-color: white;
+      padding: 20px;
+      margin-top: 20px;
     }
-    .rounded-lg {
-      border-radius: 0.5rem;
-    }
-    .bg-white {
-      background-color: #fff;
-    }
-    .bg-purple {
-      background-color: #7c3aed;
-    }
-    .bg-gray-200 {
-      background-color: #e5e7eb;
-    }
-    .text-white {
-      color: #fff;
-    }
-    .text-green {
-      color: #10b981;
-    }
-    .text-red {
-      color: #ef4444;
-    }
-    .text-gray-800 {
-      color: #1f2937;
-    }
-    .flex {
+    
+    .header {
       display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
     }
-    .justify-between {
+    
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .content-area {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .typing-section {
+      flex: 1;
+    }
+    
+    .settings-section {
+      width: 250px;
+    }
+    
+    /* Typing Area */
+    .exercise-text {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 15px;
+      font-size: 18px;
+      line-height: 1.8;
+      height: 150px;
+      overflow-y: auto;
+    }
+    
+    .progress-bar {
+      background-color: #8a2be2;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px 5px 0 0;
+      display: flex;
       justify-content: space-between;
     }
-    .items-center {
-      align-items: center;
+    
+    .progress-track {
+      height: 8px;
+      background-color: #e0e0e0;
+      border-radius: 0 0 5px 5px;
+      overflow: hidden;
     }
-    .space-x-4 > * + * {
-      margin-left: 1rem;
+    
+    .progress-fill {
+      height: 100%;
+      background-color: #8a2be2;
+      width: 25%;
     }
-    .space-y-4 > * + * {
-      margin-top: 1rem;
-    }
-    .p-2 {
-      padding: 0.5rem;
-    }
-    .p-4 {
-      padding: 1rem;
-    }
-    .p-6 {
-      padding: 1.5rem;
-    }
-    .mb-4 {
-      margin-bottom: 1rem;
-    }
-    .mb-6 {
-      margin-bottom: 1.5rem;
-    }
-    .mt-4 {
-      margin-top: 1rem;
-    }
-    .mt-8 {
-      margin-top: 2rem;
-    }
-    .mr-6 {
-      margin-right: 1.5rem;
-    }
-    .w-64 {
-      width: 16rem;
-    }
-    .w-full {
-      width: 100%;
-    }
-    .max-w-md {
-      max-width: 28rem;
-    }
-    .max-w-6xl {
-      max-width: 72rem;
-    }
-    .h-2 {
-      height: 0.5rem;
-    }
-    .h-24 {
-      height: 6rem;
-    }
-    .text-lg {
-      font-size: 1.125rem;
-    }
-    .text-2xl {
-      font-size: 1.5rem;
-    }
-    .font-bold {
-      font-weight: 700;
-    }
-    .font-mono {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    }
-    .rounded-full {
-      border-radius: 9999px;
-    }
-    .focus\:ring-2:focus {
-      box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.5);
-    }
-    .focus\:ring-purple:focus {
-      --tw-ring-color: #7c3aed;
-    }
-    .focus\:outline-none:focus {
-      outline: 2px solid transparent;
-      outline-offset: 2px;
-    }
-    .relative {
-      position: relative;
-    }
-    .absolute {
-      position: absolute;
-    }
-    button {
-      cursor: pointer;
-      padding: 0.5rem 1rem;
-      border-radius: 0.375rem;
-      font-weight: 500;
-      transition: all 0.15s ease;
-    }
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .btn-outline {
-      background-color: transparent;
-      border: 1px solid #d1d5db;
-      color: #111827;
-    }
-    .btn-outline:hover {
-      background-color: #f3f4f6;
-    }
-    input[type="text"] {
-      padding: 0.5rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.375rem;
-      width: 100%;
-    }
-    input[type="checkbox"] {
-      width: 1rem;
-      height: 1rem;
-      margin-right: 0.5rem;
-    }
-    .card {
-      border: 1px solid #e5e7eb;
-      border-radius: 0.5rem;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    .skin-color {
-      background-color: #f5d0b8;
-    }
-    .progress-bar {
-      transition: width 0.3s ease;
-    }
-    .checkbox-group {
+    
+    .current-word-container {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin-top: 15px;
+      min-height: 100px;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
     }
-    .checkbox-item {
+    
+    .current-word {
+      font-size: 24px;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 10px;
+      min-height: 40px;
+    }
+    
+    .typing-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 18px;
+      height: 45px;
+    }
+    
+    /* Hands */
+    .hands-container {
       display: flex;
-      align-items: center;
+      justify-content: space-between;
+      margin-top: 30px;
     }
-    /* Animation for correct typing */
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    
+    .hand {
+      width: 80px;
+      height: 80px;
+      background-color: #f0f0f0;
+      border-radius: 50%;
+      position: relative;
     }
-    .animate-pulse {
-      animation: pulse 0.3s ease;
+    
+    .finger {
+      position: absolute;
+      width: 12px;
+      height: 30px;
+      background-color: #ffdbac;
+      border-radius: 6px;
+    }
+    
+    /* Left Hand Fingers */
+    .left-hand .finger:nth-child(1) {
+      top: -15px;
+      left: 10px;
+      transform: rotate(-20deg);
+    }
+    .left-hand .finger:nth-child(2) {
+      top: -10px;
+      left: 22px;
+      transform: rotate(-10deg);
+    }
+    .left-hand .finger:nth-child(3) {
+      top: -15px;
+      left: 34px;
+      transform: rotate(0deg);
+    }
+    .left-hand .finger:nth-child(4) {
+      top: -10px;
+      left: 46px;
+      transform: rotate(10deg);
+    }
+    .left-hand .finger:nth-child(5) {
+      top: -15px;
+      left: 58px;
+      transform: rotate(20deg);
+    }
+    
+    /* Right Hand Fingers */
+    .right-hand .finger:nth-child(1) {
+      top: -15px;
+      right: 10px;
+      transform: rotate(20deg);
+    }
+    .right-hand .finger:nth-child(2) {
+      top: -10px;
+      right: 22px;
+      transform: rotate(10deg);
+    }
+    .right-hand .finger:nth-child(3) {
+      top: -15px;
+      right: 34px;
+      transform: rotate(0deg);
+    }
+    .right-hand .finger:nth-child(4) {
+      top: -10px;
+      right: 46px;
+      transform: rotate(-10deg);
+    }
+    
+    /* Settings Panel */
+    .settings-panel {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+    }
+    
+    .settings-title {
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .setting-group {
+      margin-bottom: 15px;
+    }
+    
+    .setting-label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    
+    select, input[type="checkbox"] {
+      margin-bottom: 10px;
+    }
+    
+    select {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+    
+    /* Stats Panel */
+    .stats-panel {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+    
+    .stats-title {
+      font-weight: bold;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .stat-value {
+      font-weight: bold;
+    }
+    
+    /* Buttons */
+    button {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    button:hover {
+      background-color: #f0f0f0;
+    }
+    
+    /* Character Coloring */
+    .correct {
+      color: #28a745;
+    }
+    
+    .incorrect {
+      color: #dc3545;
+    }
+    
+    /* Font Classes */
+    .font-typewriter {
+      font-family: 'Courier New', monospace;
+    }
+    .font-courier-new {
+      font-family: 'Courier New', monospace;
+    }
+    .font-american-typewriter {
+      font-family: 'American Typewriter', serif;
+    }
+    .font-consolas {
+      font-family: 'Consolas', monospace;
+    }
+    .font-lucida-console {
+      font-family: 'Lucida Console', monospace;
+    }
+    .font-pt-mono {
+      font-family: 'PT Mono', monospace;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .content-area {
+        flex-direction: column;
+      }
+      
+      .settings-section {
+        width: 100%;
+        margin-top: 20px;
+      }
+      
+      .header {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .nav-buttons {
+        flex-wrap: wrap;
+      }
     }
   </style>
+  <!-- Add PT Mono font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
-    <div class="border-purple rounded-lg bg-white p-6">
+    <div class="main-wrapper">
       <!-- Header -->
-      <div class="flex justify-between mb-6">
-        <button class="btn-outline">Read Instructions</button>
-        <div class="flex space-x-4">
-          <button class="btn-outline">Select Font</button>
-          <button class="btn-outline">Learn Keys</button>
-          <button class="btn-outline">Practice Words</button>
-          <button class="btn-outline">Settings</button>
+      <div class="header">
+        <button>Read Instructions</button>
+        <div class="nav-buttons">
+          <div class="setting-group">
+            <select id="font-selector">
+              <option value="typewriter">Typewriter</option>
+              <option value="courier-new" selected>Courier New</option>
+              <option value="american-typewriter">American Typewriter</option>
+              <option value="consolas">Consolas</option>
+              <option value="lucida-console">Lucida Console</option>
+              <option value="pt-mono">PT Mono</option>
+            </select>
+          </div>
+          <button>Learn Keys</button>
+          <button>Practice Words</button>
+          <button>Settings</button>
         </div>
-        <button class="btn-outline">Type Paragraph</button>
+        <button>Type Paragraph</button>
       </div>
-
-      <div class="flex">
-        <!-- Main Content -->
-        <div class="flex-1 mr-6">
+      
+      <!-- Main Content -->
+      <div class="content-area">
+        <!-- Typing Section -->
+        <div class="typing-section">
           <!-- Exercise Text -->
-          <div class="card mb-4">
-            <div class="p-4 text-lg" id="exercise-text">
-              jack jacket jail jam January Japanese jar jaunt jaw jazz jealous jeep jelly jersey jet jewel jingle job jobless joker jockey join joiner joint joke jolly jolt journal journey joy judge judicial jug juice July jump jumper jumpy June jungle junior junk jury just justice justify
-            </div>
+          <div class="exercise-text" id="exercise-text">
+            jack jacket jail jam January Japanese jar jaunt jaw jazz jealous jeep jelly jersey jet jewel jingle job jobless joker jockey join joiner joint joke jolly jolt journal journey joy judge judicial jug juice July jump jumper jumpy June jungle junior junk jury just justice justify
           </div>
-
+          
           <!-- Progress Bar -->
-          <div class="bg-purple text-white p-2 rounded-t-lg flex justify-between items-center">
-            <span id="exercise-counter">Exercise: 1/26</span>
-            <span id="stats">0 WPM | 100% Accuracy</span>
+          <div class="progress-bar">
+            <span>Exercise: 10/26</span>
           </div>
-          <div class="h-2 bg-gray-200 rounded-b-lg">
-            <div class="h-full bg-purple rounded-b-lg progress-bar" id="progress-bar" style="width: 4%"></div>
+          <div class="progress-track">
+            <div class="progress-fill"></div>
           </div>
-
+          
           <!-- Current Word -->
-          <div class="card mt-4">
-            <div class="p-4">
-              <div class="text-2xl font-mono" id="current-word-display">
-                <span>j</span><span>a</span><span>c</span><span>k</span><span> </span><span>j</span><span>a</span><span>c</span><span>k</span><span>e</span><span>t</span>
-              </div>
-              <input
-                type="text"
-                id="typing-input"
-                class="mt-4 focus:outline-none focus:ring-2 focus:ring-purple"
-                autofocus
-              />
+          <div class="current-word-container">
+            <div class="current-word" id="current-word-display">
+              jack jacket
             </div>
+            <input type="text" class="typing-input" id="typing-input" autofocus>
           </div>
-
-          <!-- Hands Illustration -->
-          <div class="flex justify-between mt-8">
-            <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
-              <div class="relative">
-                <!-- Left hand with 5 fingers -->
-                <div class="absolute w-4 h-8 skin-color rounded-full" style="left: 0px; top: -10px; transform: rotate(-20deg); transform-origin: bottom center;"></div>
-                <div class="absolute w-4 h-8 skin-color rounded-full" style="left: 4px; top: -5px; transform: rotate(-10deg); transform-origin: bottom center;"></div>
-                <div class="absolute w-4 h-8 skin-color rounded-full" style="left: 8px; top: -10px; transform: rotate(0deg); transform-origin: bottom center;"></div>
-                <div class="absolute w-4 h-8 skin-color rounded-full" style="left: 12px; top: -5px; transform: rotate(10deg); transform-origin: bottom center;"></div>
-                <div class="absolute w-4 h-8 skin-color rounded-full" style="left: 16px; top: -10px; transform: rotate(20deg); transform-origin: bottom center;"></div>
-              </div>
+          
+          <!-- Hands -->
+          <div class="hands-container">
+            <div class="hand left-hand">
+              <div class="finger"></div>
+              <div class="finger"></div>
+              <div class="finger"></div>
+              <div class="finger"></div>
+              <div class="finger"></div>
             </div>
-            <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
-              <div class="relative">
-                <!-- Right hand with 4 fingers -->
-                <div class="absolute w-4 h-8 skin-color rounded-full" style="right: 0px; top: -10px; transform: rotate(20deg); transform-origin: bottom center;"></div>
-                <div class="absolute w-4 h-8 skin-color rounded-full" style="right: 4px; top: -5px; transform: rotate(10deg); transform-origin: bottom center;"></div>
-                <div class="absolute w-4 h-8 skin-color rounded-full" style="right: 8px; top: -10px; transform: rotate(0deg); transform-origin: bottom center;"></div>
-                <div class="absolute w-4 h-8 skin-color rounded-full" style="right: 12px; top: -5px; transform: rotate(-10deg); transform-origin: bottom center;"></div>
-              </div>
+            <div class="hand right-hand">
+              <div class="finger"></div>
+              <div class="finger"></div>
+              <div class="finger"></div>
+              <div class="finger"></div>
             </div>
           </div>
         </div>
-
-        <!-- Settings Panel -->
-        <div class="w-64">
-          <div class="card">
-            <div class="p-4">
-              <h2 class="font-bold mb-4">Settings</h2>
-              <div class="checkbox-group">
-                <div class="checkbox-item">
-                  <input type="checkbox" id="show-keyboard" checked>
-                  <label for="show-keyboard">Show Keyboard</label>
-                </div>
-                <div class="checkbox-item">
-                  <input type="checkbox" id="play-sounds">
-                  <label for="play-sounds">Play Key Sounds</label>
-                </div>
-                <div class="checkbox-item">
-                  <input type="checkbox" id="play-error-sounds">
-                  <label for="play-error-sounds">Play Error Sounds</label>
-                </div>
-                <div class="checkbox-item">
-                  <input type="checkbox" id="move-on-error">
-                  <label for="move-on-error">Move on Error</label>
-                </div>
-                <div class="checkbox-item">
-                  <input type="checkbox" id="full-backspace" checked>
-                  <label for="full-backspace">Full Backspace</label>
-                </div>
-                <div class="checkbox-item">
-                  <input type="checkbox" id="one-word-backspace">
-                  <label for="one-word-backspace">One Word Backspace</label>
-                </div>
-                <div class="checkbox-item">
-                  <input type="checkbox" id="disable-backspace">
-                  <label for="disable-backspace">Disable Backspace</label>
-                </div>
-              </div>
+        
+        <!-- Settings Section -->
+        <div class="settings-section">
+          <!-- Settings Panel -->
+          <div class="settings-panel">
+            <div class="settings-title">Settings</div>
+            
+            <div class="setting-group">
+              <label class="setting-label">Backspace Options</label>
+              <select id="backspace-option">
+                <option value="full">Full Backspace</option>
+                <option value="one-word">One Word Backspace</option>
+                <option value="deactivate">Deactivate Backspace</option>
+              </select>
+            </div>
+            
+            <div class="setting-group">
+              <label class="setting-label">
+                <input type="checkbox" id="show-keyboard" checked> Show Keyboard
+              </label>
+            </div>
+            
+            <div class="setting-group">
+              <label class="setting-label">Play Sounds</label>
+              <select id="play-sounds">
+                <option value="none">None</option>
+                <option value="keypress">Key Press</option>
+                <option value="error">Error Only</option>
+              </select>
+            </div>
+            
+            <div class="setting-group">
+              <label class="setting-label">
+                <input type="checkbox" id="move-on-error"> Move on Error
+              </label>
             </div>
           </div>
-
-          <!-- Stats -->
-          <div class="card mt-4">
-            <div class="p-4">
-              <h2 class="font-bold mb-4">Statistics</h2>
-              <div class="space-y-2">
-                <div class="flex justify-between">
-                  <span>WPM:</span>
-                  <span class="font-bold" id="wpm-stat">0</span>
-                </div>
-                <div class="flex justify-between">
-                  <span>Accuracy:</span>
-                  <span class="font-bold" id="accuracy-stat">100%</span>
-                </div>
-                <div class="flex justify-between">
-                  <span>Progress:</span>
-                  <span class="font-bold" id="progress-stat">4%</span>
-                </div>
-              </div>
+          
+          <!-- Stats Panel -->
+          <div class="stats-panel">
+            <div class="stats-title">Statistics</div>
+            
+            <div class="stat-item">
+              <span>WPM:</span>
+              <span class="stat-value" id="wpm-stat">0</span>
+            </div>
+            
+            <div class="stat-item">
+              <span>Accuracy:</span>
+              <span class="stat-value" id="accuracy-stat">100%</span>
+            </div>
+            
+            <div class="stat-item">
+              <span>Progress:</span>
+              <span class="stat-value" id="progress-stat">25%</span>
             </div>
           </div>
         </div>
@@ -366,24 +480,18 @@
       const typingInput = document.getElementById('typing-input');
       const exerciseText = document.getElementById('exercise-text');
       const currentWordDisplay = document.getElementById('current-word-display');
-      const exerciseCounter = document.getElementById('exercise-counter');
-      const statsDisplay = document.getElementById('stats');
-      const progressBar = document.getElementById('progress-bar');
+      const progressFill = document.querySelector('.progress-fill');
       const wpmStat = document.getElementById('wpm-stat');
       const accuracyStat = document.getElementById('accuracy-stat');
       const progressStat = document.getElementById('progress-stat');
-      
-      // Settings checkboxes
+      const backspaceOption = document.getElementById('backspace-option');
       const showKeyboard = document.getElementById('show-keyboard');
       const playSounds = document.getElementById('play-sounds');
-      const playErrorSounds = document.getElementById('play-error-sounds');
       const moveOnError = document.getElementById('move-on-error');
-      const fullBackspace = document.getElementById('full-backspace');
-      const oneWordBackspace = document.getElementById('one-word-backspace');
-      const disableBackspace = document.getElementById('disable-backspace');
+      const fontSelector = document.getElementById('font-selector');
 
       // State
-      let currentExercise = 0;
+      let currentExercise = 9; // Starting at 10 as shown in screenshot
       let userInput = '';
       let startTime = null;
       let wpm = 0;
@@ -394,66 +502,38 @@
       // Initialize
       updateExerciseDisplay();
       updateStats();
-      setupCheckboxGroups();
 
       // Event Listeners
       typingInput.addEventListener('input', handleInputChange);
       typingInput.addEventListener('keydown', handleKeyDown);
+      fontSelector.addEventListener('change', handleFontChange);
 
-      // Settings change listeners
-      showKeyboard.addEventListener('change', updateSettings);
-      playSounds.addEventListener('change', updateSettings);
-      playErrorSounds.addEventListener('change', updateSettings);
-      moveOnError.addEventListener('change', updateSettings);
-      fullBackspace.addEventListener('change', updateBackspaceSettings);
-      oneWordBackspace.addEventListener('change', updateBackspaceSettings);
-      disableBackspace.addEventListener('change', updateBackspaceSettings);
-
-      function setupCheckboxGroups() {
-        // Make backspace options mutually exclusive
-        fullBackspace.addEventListener('change', function() {
-          if (this.checked) {
-            oneWordBackspace.checked = false;
-            disableBackspace.checked = false;
-          }
-        });
-        
-        oneWordBackspace.addEventListener('change', function() {
-          if (this.checked) {
-            fullBackspace.checked = false;
-            disableBackspace.checked = false;
-          }
-        });
-        
-        disableBackspace.addEventListener('change', function() {
-          if (this.checked) {
-            fullBackspace.checked = false;
-            oneWordBackspace.checked = false;
-          }
-        });
+      function handleFontChange() {
+        const fontClass = 'font-' + fontSelector.value;
+        // Remove all font classes
+        exerciseText.className = 'exercise-text';
+        currentWordDisplay.className = 'current-word';
+        // Add selected font class
+        exerciseText.classList.add(fontClass);
+        currentWordDisplay.classList.add(fontClass);
       }
 
       function updateExerciseDisplay() {
         const currentWord = exercises[currentExercise];
-        exerciseCounter.textContent = `Exercise: ${currentExercise + 1}/${exercises.length}`;
-        
-        // Update current word display with colored letters
         currentWordDisplay.innerHTML = '';
+        
         for (let i = 0; i < currentWord.length; i++) {
           const span = document.createElement('span');
           span.textContent = currentWord[i];
           if (i < userInput.length) {
-            span.className = userInput[i] === currentWord[i] ? 'text-green' : 'text-red';
-          } else {
-            span.className = 'text-gray-800';
+            span.className = userInput[i] === currentWord[i] ? 'correct' : 'incorrect';
           }
           currentWordDisplay.appendChild(span);
         }
         
-        // Update progress
-        const progress = ((currentExercise + 1) / exercises.length) * 100;
-        progressBar.style.width = `${progress}%`;
-        progressStat.textContent = `${Math.round(progress)}%`;
+        // Update progress (25% as shown in screenshot)
+        progressFill.style.width = '25%';
+        progressStat.textContent = '25%';
       }
 
       function handleInputChange(e) {
@@ -465,7 +545,6 @@
           startWpmCalculation();
         }
 
-        // Check for errors if moveOnError is false
         if (!moveOnError.checked || value === currentWord.slice(0, value.length)) {
           userInput = value;
           
@@ -479,11 +558,9 @@
           accuracy = Math.round((correctChars / value.length) * 100);
           accuracyStat.textContent = `${accuracy}%`;
           
-          // Update display
           updateExerciseDisplay();
           updateStats();
           
-          // Move to next exercise when complete
           if (value === currentWord) {
             setTimeout(() => {
               if (currentExercise < exercises.length - 1) {
@@ -501,15 +578,14 @@
             }, 300);
           }
         } else {
-          // Reset to last valid input if moveOnError is true and there's an error
           e.target.value = userInput;
         }
       }
 
       function handleKeyDown(e) {
-        if (disableBackspace.checked && e.key === 'Backspace') {
+        if (backspaceOption.value === 'deactivate' && e.key === 'Backspace') {
           e.preventDefault();
-        } else if (oneWordBackspace.checked && e.key === 'Backspace' && userInput.length === 0) {
+        } else if (backspaceOption.value === 'one-word' && e.key === 'Backspace' && userInput.length === 0) {
           e.preventDefault();
         }
       }
@@ -518,13 +594,12 @@
         wpmInterval = setInterval(() => {
           wpm = calculateWpm();
           wpmStat.textContent = wpm;
-          updateStats();
         }, 1000);
       }
 
       function calculateWpm() {
         if (startTime) {
-          const timeElapsed = (Date.now() - startTime) / 60000; // minutes
+          const timeElapsed = (Date.now() - startTime) / 60000;
           const words = userInput.trim().split(/\s+/).length;
           return Math.round(words / timeElapsed);
         }
@@ -532,28 +607,10 @@
       }
 
       function updateStats() {
-        statsDisplay.textContent = `${wpm} WPM | ${accuracy}% Accuracy`;
+        // Stats are updated in real-time during input handling
       }
 
-      function updateSettings() {
-        // In a real app, you might save these to localStorage
-        console.log('Settings updated:', {
-          showKeyboard: showKeyboard.checked,
-          playSounds: playSounds.checked,
-          playErrorSounds: playErrorSounds.checked,
-          moveOnError: moveOnError.checked
-        });
-      }
-
-      function updateBackspaceSettings() {
-        console.log('Backspace settings updated:', {
-          fullBackspace: fullBackspace.checked,
-          oneWordBackspace: oneWordBackspace.checked,
-          disableBackspace: disableBackspace.checked
-        });
-      }
-
-      // Focus the input field whenever the page is clicked
+      // Focus the input field when clicking anywhere
       document.addEventListener('click', function() {
         typingInput.focus();
       });
@@ -561,10 +618,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
