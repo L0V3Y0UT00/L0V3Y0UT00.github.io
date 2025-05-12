@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print 8 Copies of an Image</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        #imageContainer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+            margin: 20px 0;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #f5f2f2; /* Optional: border for visibility */
+        }
+
+        @media print {
+            body {
+                margin: 0;
+            }
+            #printButton {
+                display: none;
+            }
+            #imageInput {
+                display: none; /* Hide the file input when printing */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<input type="file" id="imageInput" accept="image/*">
+<div id="imageContainer"></div>
+<button id="printButton" onclick="printImages()">Print</button>
+
+<script>
+    const imageInput = document.getElementById('imageInput');
+    const imageContainer = document.getElementById('imageContainer');
+
+    imageInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Clear previous images
+                imageContainer.innerHTML = '';
+                // Create 8 copies of the image
+                for (let i = 0; i < 8; i++) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    imageContainer.appendChild(img);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    function printImages() {
+        window.print();
+    }
+</script>
+
+</body>
+</html>
