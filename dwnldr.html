@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bulk Video Downloader Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            height: 30px;
+            margin-bottom: 20px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bulk Video Downloader Tool</h1>
+        <form id="download-form">
+            <label for="platform">Select Platform:</label>
+            <select id="platform" name="platform">
+                <option value="youtube">YouTube</option>
+                <option value="facebook">Facebook</option>
+                <option value="tiktok">TikTok</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="url">Enter URL:</label>
+            <input type="text" id="url" name="url" required>
+
+            <label for="quality">Select Quality:</label>
+            <select id="quality" name="quality">
+                <option value="best">Best Quality</option>
+                <option value="1080p">1080p</option>
+                <option value="720p">720p</option>
+                <option value="480p">480p</option>
+                <option value="audio">Audio Only (MP3)</option>
+            </select>
+
+            <label for="edit">Select Editing Option:</label>
+            <select id="edit" name="edit">
+                <option value="none">No Editing</option>
+                <option value="trim">Trim Video</option>
+                <option value="resize">Resize Video</option>
+                <option value="convert">Convert Format</option>
+                <option value="flip">Flip Video</option>
+            </select>
+
+            <label for="description">Include Description File:</label>
+            <select id="description" name="description">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <button type="submit">Generate Command</button>
+        </form>
+        <div id="command-output"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('download-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/generate-command', {
+                method: 'POST',
+                body: formData,
+            });
+            const command = await response.text();
+            document.getElementById('command-output').innerText = command;
+        });
+    </script>
+</body>
+</html>
