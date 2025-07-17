@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mobile Model Filter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 p-6 font-sans">
+
+  <!-- Brand Tabs -->
+  <div class="flex flex-wrap gap-2 mb-4">
+    <button class="tab-button px-4 py-2 bg-blue-600 text-white rounded active" data-brand="all">All Brands</button>
+    <button class="tab-button px-4 py-2 bg-gray-300 text-black rounded" data-brand="samsung">Samsung</button>
+    <button class="tab-button px-4 py-2 bg-gray-300 text-black rounded" data-brand="xiaomi">Xiaomi</button>
+    <button class="tab-button px-4 py-2 bg-gray-300 text-black rounded" data-brand="realme">Realme</button>
+    <button class="tab-button px-4 py-2 bg-gray-300 text-black rounded" data-brand="vivo">Vivo</button>
+    <button class="tab-button px-4 py-2 bg-gray-300 text-black rounded" data-brand="oppo">Oppo</button>
+    <button class="tab-button px-4 py-2 bg-gray-300 text-black rounded" data-brand="infinix">Infinix</button>
+    <button class="tab-button px-4 py-2 bg-gray-300 text-black rounded" data-brand="tecno">Tecno</button>
+    <button class="tab-button px-4 py-2 bg-gray-300 text-black rounded" data-brand="it">iTel</button>
+    <button class="tab-button px-4 py-2 bg-gray-300 text-black rounded" data-brand="nokia">Nokia</button>
+    <button class="tab-button px-4 py-2 bg-gray-300 text-black rounded" data-brand="other">Other</button>
+  </div>
+
+  <!-- Search -->
+  <div class="mb-6">
+    <input id="searchInput" type="text" placeholder="Search models..." class="w-full px-4 py-2 border rounded shadow-sm focus:outline-none focus:ring focus:border-blue-300">
+  </div>
+
+  <!-- Models -->
+   <div id="modelContainer" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+ 
+    <!-- Samsung -->
+<div class="samsung-models">
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung F22 = Samsung A22 4G = Samsung M22</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A12 = Samsung M12 = Samsung F12 = Samsung A02 = Samsung M02 = Samsung A32 5G = Samsung M23 5G = Samsung A125 = Samsung M127 = Samsung A022 = Samsung M022 = Samsung A326 = Samsung M326</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung M11 = Samsung A11</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A04s = Samsung A23 = Samsung A13 5G = Samsung A136 = Samsung A047 = Samsung A047F</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A04e = Samsung A02s = Samsung A03s = Samsung M02s = Samsung A03 = Samsung A04 = Samsung F04 = Samsung F02s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung J6 Plus = Samsung J4 Plus</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A10 = Samsung M10 = Samsung A10s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A30 = Samsung A50 = Samsung A30s = Samsung A50s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A15 = Samsung A15 5G = Samsung F15 = Samsung M15</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung M21 = Samsung M21s = Samsung M30 = Samsung M30s = Samsung M31 = Samsung F41 = Samsung M31s = Samsung M305 = Samsung M315 = Samsung M307 = Samsung F415</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung F62 = Samsung M62 = Samsung A71 4G = Samsung A71 5G = Samsung M51</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A70 = Samsung A70s = Samsung A707 = Samsung A705</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A20 = Samsung A20s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A60 = Samsung M40</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A01 Core = Samsung M01 Core = Samsung A013 = Samsung M013</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A24 = Samsung A25 = Samsung F34 = Samsung M34</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A32 4G = Samsung M32 4G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung M01 = Samsung A01 = Samsung M015 = Samsung A015</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A05s = Samsung M14 4G = Samsung A057</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A13 = Samsung A13 4G = Samsung A13 Lite = Samsung F13 = Samsung M13 = Samsung A135 = Samsung A137</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A14 4G = Samsung A14 5G = Samsung A146 = Samsung A146B = Samsung A145F</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung M14 5G = Samsung F14 5G = Samsung M146B = Samsung E146B</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A15 5G = Samsung A15 4G = Samsung F15 5G = Samsung M15 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A16 5G = Samsung A16 4G = Samsung A26 5G = Samsung A166P</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A22 5G = Samsung F42 5G = Samsung A22s 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A23 4G = Samsung A23 5G = Samsung F23 5G = Samsung M23 5G = Samsung M33 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A24 = Samsung A25 5G = Samsung M34 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A32 4G = Samsung M32 4G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A51 = Samsung A51 5G = Samsung M31s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A52 5G = Samsung A52 4G = Samsung A52s 4G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A53 5G = Samsung A53 4G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A55 5G = Samsung A35 5G = Samsung M35 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung M52 5G = Samsung M53 5G = Samsung M54 5G = Samsung F54 5G = Samsung M52 = Samsung M54 = Samsung M53</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung M55 5G = Samsung F55 5G = Samsung C55 5G = Samsung M55s 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung S20 FE 4G = Samsung S20 FE 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="samsung">Samsung A06 5G = Samsung F06 5G = Samsung M06 5G = Samsung A066B = Samsung E066B = Samsung M066B</div>
+</div>
+
+<!-- Xiaomi -->
+<div class="xiaomi-models">
+    <!-- Redmi Models (Xiaomi Sub-brand) -->
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi A1 New = Poco C50 = Redmi A1 = Redmi A1 Plus = Redmi A2 = Redmi A2 New = Redmi A2 Plus</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 10 Prime = Redmi 10 4G = Redmi Note 11 4G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 9 = Redmi 9 Prime = Poco M2</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 11 4G = Poco M4 Pro 4G = Redmi Note 11 = Redmi Note 11S = Redmi Note 12S</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Poco C55 = Redmi 12C = Poco C40 = Redmi 10 = Redmi 10C = Redmi 10 Power = Redmi 11A</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 5A = Redmi Go</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 6A = Redmi 6</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 9A = Redmi 9AT = Redmi 9A Sport = Redmi 9i Sport = Mi 10A = Redmi 9C = Poco C3 = Poco C31 = Redmi 9i = Redmi 10A</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 12 5G = Redmi 12 4G = Redmi 13 4G = Redmi 13 5G = Redmi 13X 4G = Poco M6 Pro 5G = Poco M6 Plus 5G = Poco M6 4G = Redmi Note 12R = Redmi Note 13R = Redmi 12 New</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 9 Power = Poco M3 = Redmi Note 9 4G (Center Camera) = Redmi 9T</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 9 Pro = Redmi Note 9 Pro Max = Poco M2 Pro = Redmi Note 10 Lite</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 7 = Redmi Y3</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Soon</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 10T 5G = Redmi Note 10 5G = Redmi Note 11 SE = Poco M3 Pro 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 11E = Poco M4 5G = Redmi 11R = Mi 10 5G = Redmi 11 Prime = Poco M5 = Redmi Prime 5G = Redmi 10 5G = Redmi Note 11R = Redmi Note 11 Prime 4G = Poco M4 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 13 4G = Redmi Note 14 5G = Redmi Note 14 4G = Poco M7 Pro 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 7 = Redmi Note 7 Pro = Redmi Note 7S</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Poco X3 = Mi 10i = Redmi Note 9 Pro 5G = Poco X3 Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 13C 4G = Redmi 13C 5G = Poco M6 5G = Poco C65</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi A3 New = Poco C61 = Redmi A3X</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 12 4G = Redmi Note 12 5G = Poco X5 5G = Redmi Note 12</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 10 Pro = Redmi Note 10 Pro Max = Redmi Note 11 Pro 4G = Redmi Note 11 Pro 5G = Poco X4 Pro 5G = Mi 11i 5G = Redmi Note 11 Pro Plus = Poco X4 Pro 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 12 Pro = Redmi Note 12 Pro Plus = Poco X5 Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 13 = Redmi Note 14</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi S2 = Redmi Y2</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">iQOO 5 5G = iQOO Z5 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 14C = Redmi 14R = Redmi A4 = Redmi A3 Pro = Poco C75 = Redmi 14 New</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 11X Pro = Redmi 11i = Poco F3 = Poco F4 = Poco F3 Pro = Redmi K40 = Redmi K40 Pro = Redmi K40 Pro Plus = Redmi K40S = Mi 11X</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi K20 = Redmi K20 Pro = Mi 9T = Mi 9T Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi K30S = Mi 10T = Mi 10T Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi K60 = Redmi K60 Pro = Poco F5 Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 10 4G = Redmi Note 10S 4G = Redmi Note 11 SE 4G = Poco M5S</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 13 Pro 5G = Redmi K70E = Poco X6 5G = Poco X6 Pro 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 8 = Redmi 8A = Redmi 8A Dual</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 6 Pro = Redmi A2 Lite</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi A2 = Redmi 6X</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 10 Prime = Mi 10 4G Global</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi Note 11 5G = Redmi Note 11T 5G = Redmi Note 11S 5G = Poco M4 Pro 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Poco F5 = Redmi Note 12 Turbo = Redmi Note 13 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi K50 = Redmi K50 Pro = Redmi K60E</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">(No data listed)</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 11T = Redmi 11T Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 11 Lite 5G = Redmi 11 Lite = Redmi 11 Lite 4G = Redmi 11 Lite NE</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Redmi 13T = Redmi 13T Pro = Redmi K60 Ultra</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="redmi">Poco X2 = Poco X2 Pro = Redmi K30 = Redmi K30i = Poco F2</div>
+</div>
+
+<!-- Realme -->
+<div class="realme-models">
+    <!-- No Realme models provided in the data -->
+</div>
+
+<!-- Vivo -->
+<div class="vivo-models">
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y11 = Vivo Y12 = Vivo Y15 = Vivo Y17 = Vivo U10 = Vivo Y3</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo T3x 5G = Vivo Y200i 5G = Vivo Y58 5G = iQOO Z9x</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y20 = Vivo Y20g = Vivo Y12g = Vivo Y01</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y19 = Vivo U20 = Vivo Y5s = Vivo U3x = iQOO Z5i</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y03 = Vivo Y18 = Vivo T3 Lite 5G = Vivo Y28s 5G = Vivo Y18e = Vivo Y18i = Vivo Y18s = Vivo Z9 Lite 5G = Vivo Y28e 5G = Vivo Y03t</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y22 = Vivo Y17s = Vivo Y22s = Vivo Y22 New = Vivo Y28 5G = Vivo Y33t = Vivo Y36i = Vivo Y36 = Vivo Y12 New</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y91 = Vivo Y91i = Vivo Y90 = Vivo Y91c = Vivo Y93 = Vivo Y95 = Vivo Y1s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y79 = Vivo Y7 Plus = Vivo Y79a</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y02 = Vivo Y02t = Vivo Y02 New = Vivo Y02a</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y71 = Vivo Y71i = Vivo V7</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo S1 = Vivo S1 Pro = Vivo Z1x = Vivo Y7s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V17 = Vivo V19 Neo</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Z1 Pro = Vivo Z5x</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V28 = Vivo Y73 = Vivo V23e 5G = Vivo Y75 4G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V20 = Vivo V21e 4G = Vivo V21e 5G = Vivo V20 2021 = Vivo V21 4G = Vivo V23e = Vivo Y73 4G = Vivo S6 = Vivo Y75 4G = iQOO Z6 4G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">(OLED ONLY) Vivo V20 = Vivo V23e = Vivo Y75 = Vivo V21e = Vivo Y70 = Vivo X50 Lite = Vivo Y55 = Vivo Y51 OLED</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo T1 Pro = Vivo V25e 5G = Vivo V25 5G = Vivo V21 5G = Vivo S15e = Vivo S9e</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V11 = Vivo V11i = Vivo Z3i = Vivo Y97 = Vivo Z3</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y81 = Vivo Y81i = Vivo Y83 = Vivo Y83 Pro = Vivo Y81s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V9 = Vivo V9 Youth = Vivo V9 Pro = Vivo Y85</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y21 = Vivo Y21s = Vivo Y21a = Vivo Y21e = Vivo Y21t = Vivo Y21g = Vivo Y02s = Vivo Y16 = Vivo Y30 5G = Vivo Y15a = Vivo Y15c = Vivo Y32 = Vivo Y33 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y51 2020 = Vivo Y31 2020 = Vivo Y73 = Vivo Y72s = Vivo Y53s = iQOO Z3 = iQOO U3 = iQOO U3x = Vivo Y33s = Vivo Y31 = Vivo Y15a = Vivo T2x = Vivo Y72 5G = Vivo Y55s 5G = Vivo Y76 5G = Vivo Y76s 5G = Vivo Y75 5G = Vivo Y77 5G = Vivo Y56 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y20 = Vivo Y20a = Vivo Y20t = Vivo Y20s = Vivo Y20i = Vivo Y20g = Vivo Y12g = Vivo Y20sg = Vivo Y12s = Vivo Y12a = Vivo Y20e = Vivo Y30g = Vivo Y31s 5G = Vivo Y15a = Vivo Y11s = Vivo Y12d = Vivo Y20g = Vivo Y12s = Vivo Y15s = Vivo Y01 = iQOO U1x</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo T2x 5G = Vivo Y56 New = Vivo Y55s = Vivo Y77 5G = Vivo Y72 5G = Vivo Y72t = Vivo Y56 5G = Vivo Y75 5G = Vivo T1 5G = iQOO Z6 5G = iQOO Z6 Lite 5G = Vivo Y56 New</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y27 4G = Vivo Y36 4G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y35 = Vivo Y35 New</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V21e 5G = Vivo S10e = Vivo S6 = Vivo S7e = Vivo Y73s = Vivo Y71t = Vivo Y55 4G = Vivo X50 = Vivo G1</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y03 = Vivo Y18</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y28 4G = Vivo Y38 5G = Vivo Y19s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V27 5G = Vivo S16 = Vivo Y78 Plus = Vivo V29e = Vivo V29 Lite 5G = Vivo Y200 Pro = Vivo T2 Pro 5G = Vivo V27 Pro 5G = Vivo V29 SE 5G = Vivo Y78 5G = Vivo V30e 5G = Vivo Y300 Plus 5G = iQOO Z7 Pro = Vivo S16 = Vivo S16 Pro = Vivo S17e</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y30 4G = Vivo Y50 (Only Crown)</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V5 = Vivo Y67</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y78T = Vivo Y78 = Vivo Z8 = Vivo Z8x = Vivo Y100i = Vivo iQOO Z7x = Vivo Y36 5G = Vivo Y36</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V15 Pro = Vivo X27</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V11 Pro = Vivo X23</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V20 Pro = Vivo S7 = Vivo S7t</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V23 5G = Vivo S9 = Vivo S10 + Vivo S10 Pro = Vivo S12 Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo X60 = Vivo X70 = Vivo V2045</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo iQOO 007 = Vivo iQOO Neo 5s = Vivo iQOO Neo 5 = Vivo S15</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y100 = Vivo Y100A = Vivo Y100 = Vivo Y100 T2 5G = iQOO Z7 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y200 5G = Vivo Y200e 5G = Vivo Y100 = Vivo T3 5G = Vivo V29e</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo Y52s = Vivo Y75 5G = Vivo Y72 = iQOO Z3 = Vivo Y51 = Vivo Y53s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo T4x 5G = iQOO Z10x 5G = Vivo T3x 5G = Vivo Y58 5G = iQOO 29x = Vivo Y200i 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="vivo">Vivo V40e = Vivo T3 Pro = iQOO Z9s = iQOO Z9s Pro</div>
+</div>
+
+<!-- Oppo -->
+<div class="oppo-models">
+    <!-- No Oppo models provided in the data -->
+</div>
+
+<!-- Infinix -->
+<div class="infinix-models">
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X657 = Infinix X657C = Infinix X657B = Itel Vision 1 Plus = Itel Vision 1 Pro = Itel Vision 2S = Itel P36 = Itel P37 = Itel S16 = Infinix Smart 5A = Infinix Smart 5 = Infinix Hot 10 Lite (tray KF6 = Tecno Spark 7)</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Smart HD = Infinix Smart HD 2021 = X612 = X612B</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Tecno KE5 = Tecno KE5S = Tecno KE5K = Tecno Spark 6 GO = Tecno Spark GO 2020 = SPARKGO 2021</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Smart 6 HD = Infinix Smart HD 2022 = Infinix Hot 12i = Infinix Hot 20i = X6511C = X6512 = X665</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">KG5 = BD4 = Tecno POP 5 LTE = BD4J = KG5H = KG5M = Tecno POP 5 PRO = BD4A = BD4H = BD4I = SPARK GO 2022</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Itel A60 = Itel A60S = Infinix Smart 7 = Tecno Spark 10 = Tecno Pop 7 Pro = Tecno Pop 7 = Tecno Spark 10C = Itel P40 = Tecno Spark Go 2023 = Tecno Spark 10 5G = Infinix Smart 7 HD = X6517 = X669 = BF6 = X6516 = X6515 = KI5Q = KI5N = KI5K = BF7 = BF7H = BF7N = BF7S = P662L = KI8 = X669C = A70 = P40 = A50 = A60 = A60S = S23 = A05S = KI5 = KI8 = P55 5G = Smart 7 = Smart 7 HD = Hot 30i = Spark GO 2023 = Spark 10 = Pop 7 = ZTE A34 = ZTE A54</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Hot 9 Play = Infinix Smart 4 Plus = X680B = X680C = X680 = X680F</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Hot 10 Play = Infinix Hot 11 Play = Pova Neo = LE6 = Spark 7 = Itel P37 Pro = Vision 2 Plus = P681L = P681LM = X688 = X688B = X688C = LE6H = KF7</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Hot 10 = Pova 1 = Pova = Camon 16 = Infinix Hot 10i = Tecno Spark 6 = Infinix Note 8i = X683 = X682B = CE7 = CE7I = X682C = X682 = LD7 = LD7J = X683C = KE7</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">KG6K = A58 PRO = SPARK 8 = SMART 6 PLUS = S17 = A58 = A661W = S661W = A661L = Itel S17 = Itel A58 = Itel A58 Pro = Itel A49 = X6511G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Itel Vision 3 = S661L = Tecno Spark 9 = Itel S18 = Itel Vision 3 = Tecno Spark 8C = Tecno Spark 9T = Itel Vision 5 = Itel P38 = KG5P = KG5J = KG5K = KH6 = KG5KS = KG5Q</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Note 11 = Infinix Note 12 Turbo = Infinix Note 12 5G = Infinix Note 12 Pro = X663 = X663D = X676B = X670 = X671 = X6716</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Smart 6 Plus = Infinix Hot 10S = Infinix Hot 10T = Tecno Spark 7P = Itel P38 Pro = Itel Vision 3 Plus = Infinix Hot 11 = X6823 = X689 = X6823C = X689B = X689D = X689C = X689F = KF7J</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Hot 12 = Infinix Note 12i = Infinix Hot 20 = Infinix Hot 20 Play = Pova Neo 2 = Infinix Hot 12 Play = Itel P40 Plus = X6816C = X6816D = X6816 = X6817 = X6819 = X6825 = X6826 = LG6 = LG6N = Pova 4 = LG7N</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X650 = KC2 = KC8 = CC7 = Infinix HOT 8 = Infinix HOT 8 PRO = Tecno SPARK 4</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Tecno KF6 = Tecno SPARK 7T = Tecno SPARK 7 = Tecno KG6 = Infinix X659 = Infinix X658 = Tecno Spark 7T = KF6H = KF6J = KG6 = Tecno Spark 8 (tray KE5)</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">X6525 = X6526 = X6528 = Infinix Smart 8 = Tecno Spark Go 2024 = Infinix Smart 8HD = Tecno Spark 20 = Tecno Spark 20C = Infinix Hot 40i = Tecno Pop 8 = Itel P55 = Itel P55+ = Itel P55T = A666L = Itel S23 Plus = Itel S23+ = Itel S18 Pro = Itel S24 = Itel RS4 = BG7 = KJ5 = BG6 = BG6H = BG6M</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Hot 9 = Infinix Hot 9 Pro = Infinix Note 7 Lite = Camon 15 Air = Camon 15 = Tecno Spark 5 Pro = Tecno Spark 5 = X655C = X655 = X655D = X655F = X656 = DC6 = DC7 = KD7 = KD7S = KD7H</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Itel P36 Play = Itel Vision 1</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Itel S16 Pro = Itel Vision 2 = L6503</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Tecno Spark 5 Air = KD6 = KD6A = Tecno Spark 6 Air = KE6 = KE6J = Tecno Pouvoir 4 = LC7 = KE3 = Tecno Pouvoir 4 Pro = LC8 = Tecno Spark 2 Air = Tecno Spark Power 2</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">CK6 = CK7 = CK8N = CK9 = Infinix X6739 = Infinix X678B = Infinix X6710 = Camon 20 = Camon GT 10 Pro = Tecno GT 10 Pro = Tecno Camon 20 = Tecno Camon 20 Pro = Tecno Camon 20 Pro 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix S5 = Infinix S5 Lite = Tecno Camon 12 Air = KC3 = CC3 = X652</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">X6827 = Infinix Hot 20 Pro = Tecno Spark 8 Pro = KG8 = X6812B = Tecno Camon 17P = CG7 = Tecno Pova = LE6J = Neo 5G = Infinix Zero 5G = X6815B = X6812 = Infinix Hot 11S = Tecno Camon 18 = CH6 = Tecno Camon 19 Neo = CH6I = Infinix Zero 5G 2023 = X6815D = Tecno Camon 18P = CH7N</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X693 = Infinix NOTE 10 = Tecno POVA 2 = Tecno POVA 5G = Tecno POVA 3 = LE7 = LE8 = LF7 = Infinix X698 = Infinix X697 = Infinix NOTE 11i = Infinix NOTE 11S = Infinix NOTE 11 PRO</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">X6831 = X6711 = X6838 = X6837 = X6832 = X6836 = Tecno Spark 20 Pro = KJ6 = Infinix Hot 40 = Tecno Spark 10 Pro = KI7 = Infinix Hot 30 5G = Infinix Note 30 5G = Infinix Hot 40 Pro = Pova 5 Pro 5G = LH7N = Tecno Spark 20 Pro 5G = KJ8 = Infinix Note 40X 5G (Version Problem)</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Itel A06 = Itel A50C = Itel A669W = Itel A669L</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Soon</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">X668 = X668C = Infinix Hot 12 = Infinix Hot 12 Pro = Tecno Pop 6 Pro = BE4 = Infinix Pop 6 Pro = BE8</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Smart 4 = Tecno Pop 3 Plus = BB4K = BB4 = X653C = X653</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Tecno CC6 = Infinix X655 = Tecno KD7 = Infinix X652B = Tecno KC3 = Tecno KD7H = Tecno CD7 = X655C = X656 = C653C = X6524 = Tecno CD6 = CC6</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix Hot 50 5G = X6720 = Infinix Hot 50i = X6531 = Infinix Smart 9 = X6532 = Tecno Spark Go 1 = KL4 = Tecno Spark 30 5G = KL8 = Itel P65 = Itel P671L = Tecno Spark 30C = KL5N = Itel A80 = Itel A671LC = Pova 6 Neo 5G = KL8 = Tecno Pop 9 = KL4 = KLT = KL5N = Tecno Pop 9 5G = KL8H = Tecno Spark 30C 5G = X6531B = X6720B = X6532C = Tecno Smart 9 HD = KL4H = Tecno Pop 9 4G = Tecno Spark Go 1S</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix S4 = X626 = X627 = Infinix Smart 3 Plus</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">X675 = Infinix Hot 11 2022</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X662 = KH7H = Tecno Spark 9 Pro = KH7 = KG7 = KG7H = KG6P = Infinix Hot 11 = Tecno Spark 8T = Tecno Spark 8P = X662</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Tecno KC1 = Tecno KC6 = Tecno Spark Go = Tecno Spark 4 Air</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Itel Vision 1 = Itel P36 Play</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X6511E = Infinix X6511D = Infinix X6511</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">TECNO IN1 = Infinix X5515</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Tecno KB2 = X5516 = iACE2X</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">CG6 = CG6J = Camon 17 = KF8 = Spark 7 Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">X687 = CE9 = Zero 8i</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X695 = Infinix Note 10 Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Tecno Camon 19 Pro 5G = CI7 = CI7N = Tecno Camon 19 Pro = CI8 = CI8N = Camon 19 = CI6 = CI6N</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Tecno Camon 30 5G = CL7 = CL7K = Infinix Note 40 5G = Infinix X6852 = Tecno Pova 6 = LI7 = Tecno Pova 6 Pro 5G = LI9 = Tecno Camon 30 = CL6 = CL6K</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">CH9 = Camon 18 Premier</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X6811 = Infinix Zero X = Infinix Zero X Pro = Infinix X6811 = Infinix X6811B</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X622 = Infinix X623 = Infinix Hot S3X = Infinix Hot 6X</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X625C = Infinix Hot 7 = Infinix X625D = Infinix Hot 7 Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">KB3 = KB8 = iSky 3 = Tecno Spark 3 Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">ID3K = ID5A = ID5B = CF7 = CF8 = Camon I2 = Camon I2X = Camon I Air 2 Plus</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">CG8 = Infinix X6810 = Tecno Camon 17 Pro = Infinix Zero X Neo</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X690 = Infinix X690B = Infinix Note 7</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X666 = Infinix X666B = Infinix Hot 20 5G</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="infinix">Infinix X668 = Infinix X668C = BE8 = BE8I = KH6 = Infinix Hot 12 Pro = Pop 6 Pro</div>
+</div>
+
+<!-- Tecno -->
+<div class="tecno-models">
+    <!-- Tecno models are included in Infinix section in the provided data -->
+</div>
+
+<!-- iTel -->
+<div class="itel-models">
+    <!-- iTel models are included in Infinix section in the provided data -->
+</div>
+
+<!-- Nokia -->
+<div class="nokia-models">
+    <!-- No Nokia models provided in the data -->
+</div>
+
+<!-- Other -->
+<div class="other-models">
+    <!-- Moto Models (categorized under Other as not listed in requested filters) -->
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G22 = Moto G32 = Moto E32s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto Edge 50 Fusion = Moto G85</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G60 = Moto G60s = Moto G51 5G = Moto G40 Fusion</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G10 = Moto G20 = Moto G30 = Moto G10 Power</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G52 = Moto G82 = Moto G71s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G22 = Moto E32 = Moto E32s</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G31 = Moto G41 = Moto G71 INCELL</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G32 = Moto G73</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto E7 Power = Moto E7 = Moto E7i</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto Edge 30 Fusion = Moto S30 Pro</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G13 = Moto G23</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto E7 Plus = Moto G9 Play = Moto G9</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G14 = Moto G54 = Moto G64</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto E30 = Moto E40</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G7 = Moto G7 Plus</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G45 5G = Moto G34 = Moto G53 = Moto G23 = Moto G13</div>
+    <div class="model-item p-3 bg-white rounded shadow" data-brand="moto">Moto G04 = Moto G24 = Moto G24 Power (G24p)</div>
+</div>
+
+
+</div>
+
+
+
+  <!-- Script -->
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const modelItems = document.querySelectorAll('.model-item');
+
+    let activeBrand = 'all';
+
+    // Highlight function that preserves HTML
+    function highlightMatch(text, term) {
+      if (!term) return text;
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(`<div>${text}</div>`, 'text/html');
+      const walk = document.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null, false);
+      const regex = new RegExp(`(${term})`, 'gi');
+      let node;
+
+      while ((node = walk.nextNode())) {
+        const value = node.nodeValue;
+        if (regex.test(value)) {
+          const span = document.createElement('span');
+          const newHTML = value.replace(regex, '<span class="highlight">$1</span>');
+          const temp = document.createElement('div');
+          temp.innerHTML = newHTML;
+          const frag = document.createDocumentFragment();
+          Array.from(temp.childNodes).forEach(n => frag.appendChild(n));
+          node.parentNode.replaceChild(frag, node);
+        }
+      }
+      return doc.body.innerHTML;
+    }
+
+    function filterModels() {
+      const searchTerm = searchInput.value.trim().toLowerCase();
+
+      modelItems.forEach(item => {
+        const brand = item.getAttribute('data-brand').toLowerCase();
+        const rawText = item.textContent;
+        const matchBrand = activeBrand === 'all' || brand === activeBrand;
+        const matchText = rawText.toLowerCase().includes(searchTerm);
+        const originalHTML = item.getAttribute('data-original') || item.innerHTML;
+
+        if (matchBrand && (!searchTerm || matchText)) {
+          item.classList.remove('hidden');
+          item.innerHTML = highlightMatch(originalHTML, searchTerm);
+        } else {
+          item.classList.add('hidden');
+          item.innerHTML = originalHTML;
+        }
+
+        if (!item.getAttribute('data-original')) {
+          item.setAttribute('data-original', originalHTML);
+        }
+      });
+    }
+
+    // Tab event
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        tabButtons.forEach(btn => btn.classList.remove('active', 'bg-blue-600', 'text-white'));
+        button.classList.add('active', 'bg-blue-600', 'text-white');
+        activeBrand = button.getAttribute('data-brand');
+        filterModels();
+      });
+    });
+
+    // Search event
+    searchInput.addEventListener('input', filterModels);
+
+    // Initial filter
+    filterModels();
+  </script>
+</body>
+</html>
