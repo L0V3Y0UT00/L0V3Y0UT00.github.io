@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Mobile POS QR Code Scanner</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsqr/1.4.0/jsQR.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 10px;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 100%;
+    }
+    #video {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border: 2px solid #333;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    #scanned-items {
+      width: 100%;
+      max-width: 500px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    #item-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #item-list li {
+      background: #fff;
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      width: 45%;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+      background-color: #218838;
+    }
+    #total {
+      font-weight: bold;
+      margin: 10px 0;
+      font-size: 16px;
+      text-align: center;
+    }
+    #controls {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 500px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h1 style="font-size: 18px; margin: 10px 0;">Mobile POS QR Scanner</h1>
+    <video id="video" autoplay playsinline></video>
+    <div id="controls">
+      <button id="startBtn">Start Scanning</button>
+      <button id="stopBtn" disabled>Stop Scanning</button>
+    </div>
+    <div id="scanned-items">
+      <h2 style="font-size: 16px; margin: 10px 0;">Scanned Items</h2>
+      <ul id="item-list"></ul>
+      <div id="total">Total: $0.00</div>
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById('video');
+    const startBtn = document.getElementById('startBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const itemList = document.getElementById('item-list');
+    const totalDisplay = document.getElementById('total');
+    let stream = null;
+    let scanning = false;
+    let scannedItems = [];
+    let lastScannedCode = null;
+
+    // Mock product database (replace with actual database or API in production)
+    const products = {
+      '123456': { name: 'Product A', price: 10.99 },
+      '789012': { name: 'Product B', price: 5.49 },
+      '345678': { name: 'Product C', price: 15.99 }
+    };
+
+    async function startScanning() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { 
+            facingMode: { ideal: 'environment' }, // Prefer rear camera
+            width: { ideal: 1280 },
+            height: { ideal: 720 }
+          }
+        });
+        video.srcObject = stream;
+        scanning = true;
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+        scan();
+      } catch (err) {
+        console.error('Error accessing camera:', err);
+        alert('Could not access the camera. Please ensure camera permissions are granted.');
+      }
+    }
+
+    function stopScanning() {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+        scanning = false;
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+      }
+    }
+
+    function updateTotal() {
+      const total = scannedItems.reduce((sum, item) => sum + item.price, 0);
+      totalDisplay.textContent = `Total: $${total.toFixed(2)}`;
+    }
+
+    function addItemToList(code) {
+      // Prevent duplicate scans within a short time
+      if (code === lastScannedCode) return;
+      lastScannedCode = code;
+      setTimeout(() => { lastScannedCode = null; }, 1000);
+
+      const product = products[code] || { name: `Unknown Product (${code})`, price: 0.00 };
+      scannedItems.push({ code, ...product });
+
+      const li = document.createElement('li');
+      li.textContent = `${product.name}: $${product.price.toFixed(2)}`;
+      itemList.prepend(li); // Add new items at the top
+      updateTotal();
+    }
+
+    function scan() {
+      if (!scanning) return;
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+      if (code) {
+        addItemToList(code.data);
+      }
+
+      requestAnimationFrame(scan);
+    }
+
+    startBtn.addEventListener('click', startScanning);
+    stopBtn.addEventListener('click', stopScanning);
+
+    // Prevent iOS from zooming on touch
+    document.addEventListener('gesturestart', (e) => e.preventDefault());
+  </script>
+</body>
+</html>
