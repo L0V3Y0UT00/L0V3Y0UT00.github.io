@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Umar Khaliq - Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Salsa&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Salsa', cursive;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            color: #000;
+        }
+
+        @page {
+            size: A4;
+            margin: 25mm 20mm 25mm 20mm;
+        }
+
+        :root {
+            --accent-blue: #005a9e;
+        }
+
+        h1, h2, h3, h4, h5, h6, a {
+            color: var(--accent-blue);
+        }
+
+        .container {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin: 0 0 10px;
+        }
+
+        .header p, ul, li, td {
+            font-size: 14px;
+        }
+
+        .header img {
+            width: 120px;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+            margin-top: 30px;
+        }
+
+        .section {
+            margin-bottom: 10px;
+        }
+
+        .info-table {
+            font-size: 14px;
+            border-collapse: collapse;
+        }
+
+        .info-table td {
+            padding: 4px 10px 4px 0;
+            vertical-align: top;
+        }
+
+        a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .print-btn {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .print-btn button {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .editable {
+            border-bottom: 1px dotted gray;
+            padding: 2px;
+        }
+
+        #upload-container {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        #upload-pic {
+            font-size: 12px;
+        }
+
+        @media print {
+            .print-btn, #upload-container {
+                display: none;
+            }
+
+            .editable {
+                border: none !important;
+            }
+
+            body {
+                margin: 0;
+            }
+
+            .container {
+                margin: 0;
+                width: auto;
+                height: auto;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="print-btn">
+        <button onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <div class="container" contenteditable="true">
+        <div class="header">
+            <div>
+                <h1 class="editable">Umar Khaliq</h1>
+                <p><strong>Address:</strong> <span class="editable">House # 04, Street # 04, Sector # 04, H.B.C.H.S,<br>
+                Naval Colony Hub River Road, Karachi,<br>
+                Baldia Town Hub River Road, Karachi.</span></p>
+                <p><strong>Contact No:</strong> <span class="editable">+92 312 6054404</span></p>
+                <p><strong>Email:</strong> <a href="mailto:wagarv656@gmail.com" class="editable">wagarv656@gmail.com</a></p>
+            </div>
+            <div>
+                <img src="2.png" id="profile-pic" alt="Umar Khaliq">
+                <div id="upload-container">
+                    <input type="file" id="upload-pic" accept="image/*" onchange="changePicture(event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Objective</h2>
+            <p class="editable">Reliable punctual hardworking and team-oriented individual, who works well in a collaborative environment, yet thrives on personal achievements.</p>
+        </div>
+
+        <div class="section">
+            <h2>Academic Qualification</h2>
+            <ul>
+                <li class="editable">Primary</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Experience</h2>
+            <p><strong>13 Years’ Experience as a High Line Pressure Operator</strong></p>
+            <ul>
+                <li><strong>Job Responsibility:</strong>
+                    <ul>
+                        <li class="editable">Altrus, Oman, Hino, Nissan</li>
+                        <li class="editable">Diesel Engine work</li>
+                        <li class="editable">FM-2P, FM-J J8</li>
+                        <li class="editable">Gar, Engine, Wheel</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Personal Information</h2>
+            <table class="info-table">
+                <tr><td><strong>Father’s Name</strong></td><td>: <span class="editable">Khaliq Hussain</span></td></tr>
+                <tr><td><strong>CNIC No</strong></td><td>: <span class="editable">37401-8398717-3</span></td></tr>
+                <tr><td><strong>Date of Birth</strong></td><td>: <span class="editable">13-09-2002</span></td></tr>
+                <tr><td><strong>Passport No</strong></td><td>: <span class="editable">TC1457171</span></td></tr>
+                <tr><td><strong>Issue Date</strong></td><td>: <span class="editable">13 Jan 2023 to 12 Jan 2028</span></td></tr>
+                <tr><td><strong>Nationality</strong></td><td>: <span class="editable">Pakistani</span></td></tr>
+                <tr><td><strong>Religion</strong></td><td>: <span class="editable">Islam</span></td></tr>
+                <tr><td><strong>Marital Status</strong></td><td>: <span class="editable">Single</span></td></tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Reference</h2>
+            <p class="editable">Will be furnished upon request.</p>
+        </div>
+    </div>
+
+    <script>
+        function changePicture(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-pic').src = e.target.result;
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+</body>
+</html>
