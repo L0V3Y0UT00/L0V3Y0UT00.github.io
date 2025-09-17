@@ -1,1 +1,857 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Ledger</title>
+
+    <!-- External libraries for styling and icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Embedded CSS for custom styling -->
+    <style>
+        /* Add some padding to the bottom of the page to prevent content from being hidden by the form */
+        body {
+            padding-bottom: 40px;
+        }
+
+        /* Style for each item in the customer list */
+        .customer-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        /* Container for the customer's picture and name */
+        .customer-info {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Style for the customer's profile picture */
+        .customer-pic {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            background-color: #e9ecef;
+        }
+
+        /* Style for the customer's balance display */
+        .customer-balance {
+            font-weight: bold;
+        }
+
+        /* Style for the "Add New Customer" form section */
+        #add-customer-form-section {
+            border-top: 1px solid #dee2e6;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+        }
+
+        #add-customer-fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            z-index: 1000;
+        }
+
+        .fab-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+        }
+
+        .fab-popup-menu {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .fab-menu-item {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Page Header -->
+    <header class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Digital Ledger</a>
+            <div class="ms-auto d-flex" style="width: 50%;">
+                <input class="form-control me-2" type="search" id="search-bar" placeholder="Search by Name, CNIC, etc..." aria-label="Search">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="container mt-4" id="main-content">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4">All Customers</h2>
+        </div>
+        <div class="list-group" id="records-container">
+            <!-- Customer list will be dynamically inserted here by JavaScript -->
+        </div>
+    </div>
+
+    
+
+    <!-- Customer Detail View -->
+    <div id="customer-detail-view" class="container mt-4" style="display: none;">
+        <!-- Customer details will be dynamically inserted here -->
+    </div>
+
+    <!-- Transaction Form Section -->
+    <div id="transaction-form-section" class="container mt-4" style="display: none;">
+        <h2 class="h4 mb-3">Add Transaction</h2>
+        <form id="transaction-form">
+            <input type="hidden" id="transaction-customer-id">
+            <div class="mb-3">
+                <label for="transaction-amount" class="form-label">Amount</label>
+                <input type="number" class="form-control" id="transaction-amount" required>
+            </div>
+            <div class="mb-3">
+                <label for="transaction-date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="transaction-date" required>
+            </div>
+            <div class="mb-3">
+                <label for="receipt-picture" class="form-label">Receipt Picture</label>
+                <input type="file" class="form-control" id="receipt-picture" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-primary">Save Transaction</button>
+            <button type="button" id="cancel-transaction" class="btn btn-secondary">Cancel</button>
+        </form>
+    </div>
+
+
+    <!-- Add New Customer Form Section -->
+    <div class="container mt-4" id="add-customer-form-section" style="display: none;">
+        <h2 class="h4 mb-3">Add New Customer</h2>
+        <form id="ledger-form">
+            
+            <!-- Customer Information Card -->
+            <div class="card mb-4">
+                <div class="card-header"><h3>Customer Information</h3></div>
+                <div class="card-body"><div class="row">
+                    <div class="col-md-6 mb-3"><label for="customer-name" class="form-label">Honorable Name <span class="text-danger">*</span></label><input type="text" class="form-control" id="customer-name" required></div>
+                    <div class="col-md-6 mb-3"><label for="account-no" class="form-label">Account No.</label><input type="text" class="form-control" id="account-no"></div>
+                    <div class="col-md-6 mb-3"><label for="father-name" class="form-label">Father's Name</label><input type="text" class="form-control" id="father-name"></div>
+                    <div class="col-md-6 mb-3"><label for="nation" class="form-label">Nation</label><input type="text" class="form-control" id="nation"></div>
+                    <div class="col-md-6 mb-3"><label for="dob" class="form-label">Date of Birth</label><input type="date" class="form-control" id="dob"></div>
+                    <div class="col-md-6 mb-3"><label for="cnic" class="form-label">Identity Card No. <span class="text-danger">*</span></label><input type="text" class="form-control" id="cnic" required></div>
+                    <div class="mb-3"><label for="current-address" class="form-label">Current Address</label><textarea class="form-control" id="current-address" rows="2"></textarea></div>
+                    <div class="mb-3"><label for="employment-address" class="form-label">Employment Address</label><textarea class="form-control" id="employment-address" rows="2"></textarea></div>
+                    <div class="col-md-6 mb-3"><label for="phone-home" class="form-label">Phone (Home)</label><input type="tel" class="form-control" id="phone-home"></div>
+                    <div class="col-md-6 mb-3"><label for="phone-office" class="form-label">Phone (Office)</label><input type="tel" class="form-control" id="phone-office"></div>
+                    <div class="col-md-6 mb-3"><label for="mobile-number" class="form-label">Mobile Number</label><input type="tel" class="form-control" id="mobile-number"></div>
+                    <div class="col-md-6 mb-3"><label for="customer-picture" class="form-label">Customer Picture</label><input type="file" class="form-control" id="customer-picture" accept="image/*"></div>
+                    <div class="col-md-6 mb-3"><label for="cnic-picture" class="form-label">Customer CNIC Picture</label><input type="file" class="form-control" id="cnic-picture" accept="image/*"></div>
+                </div></div>
+            </div>
+
+            <!-- Guarantor Information Card -->
+            <div class="card mb-4">
+                <div class="card-header"><h3>Guarantor Information</h3></div>
+                <div class="card-body"><div class="row">
+                    <div class="col-md-6 mb-3"><label for="guarantor-name" class="form-label">Guarantor Name</label><input type="text" class="form-control" id="guarantor-name"></div>
+                    <div class="col-md-6 mb-3"><label for="guarantor-father-name" class="form-label">Guarantor's Father's Name</label><input type="text" class="form-control" id="guarantor-father-name"></div>
+                    <div class="col-md-6 mb-3"><label for="guarantor-nation" class="form-label">Guarantor's Nation</label><input type="text" class="form-control" id="guarantor-nation"></div>
+                    <div class="col-md-6 mb-3"><label for="guarantor-dob" class="form-label">Guarantor's Date of Birth</label><input type="date" class="form-control" id="guarantor-dob"></div>
+                    <div class="col-md-6 mb-3"><label for="guarantor-cnic" class="form-label">Guarantor's Identity Card No.</label><input type="text" class="form-control" id="guarantor-cnic"></div>
+                    <div class="mb-3"><label for="guarantor-current-address" class="form-label">Guarantor's Current Address</label><textarea class="form-control" id="guarantor-current-address" rows="2"></textarea></div>
+                    <div class="mb-3"><label for="guarantor-employment-address" class="form-label">Guarantor's Employment Address</label><textarea class="form-control" id="guarantor-employment-address" rows="2"></textarea></div>
+                    <div class="col-md-6 mb-3"><label for="guarantor-phone-home" class="form-label">Guarantor's Phone (Home)</label><input type="tel" class="form-control" id="guarantor-phone-home"></div>
+                    <div class="col-md-6 mb-3"><label for="guarantor-phone-office" class="form-label">Guarantor's Phone (Office)</label><input type="tel" class="form-control" id="guarantor-phone-office"></div>
+                    <div class="col-md-6 mb-3"><label for="guarantor-mobile-number" class="form-label">Guarantor's Mobile Number</label><input type="tel" class="form-control" id="guarantor-mobile-number"></div>
+                    <div class="col-md-6 mb-3"><label for="guarantor-picture" class="form-label">Guarantor's Picture</label><input type="file" class="form-control" id="guarantor-picture" accept="image/*"></div>
+                    <div class="col-md-6 mb-3"><label for="guarantor-cnic-picture" class="form-label">Guarantor's CNIC Picture</label><input type="file" class="form-control" id="guarantor-cnic-picture" accept="image/*"></div>
+                </div></div>
+            </div>
+
+            <!-- Purchase & Installment Details Card -->
+            <div class="card mb-4">
+                <div class="card-header"><h3>Purchase & Installment Details</h3></div>
+                <div class="card-body"><div class="row">
+                    <div class="col-md-6 mb-3"><label for="purchase-date" class="form-label">Purchase Date</label><input type="date" class="form-control" id="purchase-date"></div>
+                    <div class="col-md-6 mb-3"><label for="object-name" class="form-label">Name of object(s)</label><input type="text" class="form-control" id="object-name"></div>
+                    <div class="col-md-6 mb-3"><label for="receipt-no" class="form-label">Receipt No.</label><input type="text" class="form-control" id="receipt-no"></div>
+                    <div class="col-md-6 mb-3"><label for="total-amount" class="form-label">The Whole Figure (Total Amount)</label><input type="number" class="form-control" id="total-amount" step="0.01"></div>
+                    <div class="col-md-6 mb-3"><label for="advance-payment" class="form-label">Advance</label><input type="number" class="form-control" id="advance-payment" step="0.01"></div>
+                    <div class="col-md-6 mb-3"><label for="monthly-installment" class="form-label">Monthly Installment</label><input type="number" class="form-control" id="monthly-installment" step="0.01"></div>
+                    <div class="col-md-6 mb-3"><label for="monthly-date" class="form-label">Monthly Date (1-31)</label><input type="number" class="form-control" id="monthly-date" min="1" max="31"></div>
+                </div></div>
+            </div>
+
+            <!-- Form Submission Button -->
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Save Record</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="fab-container">
+        <div class="fab-popup-menu" style="display: none;">
+            <button id="fab-add-customer" class="fab-menu-item btn btn-primary btn-sm rounded-circle shadow" title="Add Customer">
+                <i class="fas fa-user-plus"></i>
+            </button>
+            <button id="fab-import" class="fab-menu-item btn btn-info btn-sm rounded-circle shadow" title="Import Data">
+                <i class="fas fa-upload"></i>
+            </button>
+            <button id="fab-export" class="fab-menu-item btn btn-info btn-sm rounded-circle shadow" title="Export Data">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+        <button id="fab-main" class="btn btn-primary btn-lg rounded-circle shadow">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+    <input type="file" id="import-file-input" accept=".json" style="display: none;">
+
+    <!-- Embedded JavaScript Application -->
+    <script>
+    // Wait for the HTML document to be fully loaded before running the script
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- DOM Element References ---
+        const form = document.getElementById('ledger-form');
+        const recordsContainer = document.getElementById('records-container');
+        const exportButton = document.getElementById('export-button');
+        const searchBar = document.getElementById('search-bar');
+        const accountNoInput = document.getElementById('account-no');
+        const transactionForm = document.getElementById('transaction-form');
+        const addCustomerFab = document.getElementById('fab-main');
+        const fabPopupMenu = document.querySelector('.fab-popup-menu');
+        const fabAddCustomer = document.getElementById('fab-add-customer');
+        const fabImport = document.getElementById('fab-import');
+        const fabExport = document.getElementById('fab-export');
+        const exportDataBtn = document.getElementById('export-data-btn');
+        
+        const importFileInput = document.getElementById('import-file-input');
+
+
+        // --- Application State and Constants ---
+        let db; // To hold the IndexedDB database instance
+        let allRecords = []; // Cache for all customer records
+        const DB_NAME = 'DigitalLedgerDB';
+        const STORE_NAME = 'records';
+        const TX_STORE_NAME = 'transactions';
+        const DEFAULT_PIC_SVG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23adb5bd'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E";
+
+        // --- Core Functions ---
+
+        /**
+         * Generates a unique customer account ID in the format YY-NN.
+         * YY is the last two digits of the current year.
+         * NN is a serial number that resets every year.
+         */
+        function generateAccountId() {
+            const now = new Date();
+            const year = now.getFullYear().toString().slice(-2); // Get last two digits of the year
+
+            // Find the highest serial number for the current year from existing records
+            let maxSerial = 0;
+            if (allRecords && allRecords.length > 0) {
+                allRecords.forEach(record => {
+                    if (record.accountNo && record.accountNo.startsWith(year + '-')) {
+                        const serial = parseInt(record.accountNo.split('-')[1], 10);
+                        if (serial > maxSerial) {
+                            maxSerial = serial;
+                        }
+                    }
+                });
+            }
+
+            const newSerial = maxSerial + 1;
+            const formattedSerial = String(newSerial).padStart(2, '0');
+
+            return `${year}-${formattedSerial}`;
+        }
+
+        /**
+         * Sets the generated account ID in the form and makes the field read-only.
+         */
+        function setAndLockAccountId() {
+            accountNoInput.value = generateAccountId();
+            accountNoInput.readOnly = true;
+        }
+
+        function handleEdit(recordId) {
+            const recordToEdit = allRecords.find(record => record.id === recordId);
+            if (!recordToEdit) {
+                alert('Record not found!');
+                return;
+            }
+
+            // Populate the form with the record data
+            document.getElementById('customer-name').value = recordToEdit.customerName;
+            document.getElementById('account-no').value = recordToEdit.accountNo;
+            document.getElementById('father-name').value = recordToEdit.fatherName;
+            document.getElementById('nation').value = recordToEdit.nation;
+            document.getElementById('dob').value = recordToEdit.dob;
+            document.getElementById('cnic').value = recordToEdit.cnic;
+            document.getElementById('current-address').value = recordToEdit.currentAddress;
+            document.getElementById('employment-address').value = recordToEdit.employmentAddress;
+            document.getElementById('phone-home').value = recordToEdit.phoneHome;
+            document.getElementById('phone-office').value = recordToEdit.phoneOffice;
+            document.getElementById('mobile-number').value = recordToEdit.mobileNumber;
+            document.getElementById('guarantor-name').value = recordToEdit.guarantorName;
+            document.getElementById('guarantor-father-name').value = recordToEdit.guarantorFatherName;
+            document.getElementById('guarantor-nation').value = recordToEdit.guarantorNation;
+            document.getElementById('guarantor-dob').value = recordToEdit.guarantorDob;
+            document.getElementById('guarantor-cnic').value = recordToEdit.guarantorCnic;
+            document.getElementById('guarantor-current-address').value = recordToEdit.guarantorCurrentAddress;
+            document.getElementById('guarantor-employment-address').value = recordToEdit.guarantorEmploymentAddress;
+            document.getElementById('guarantor-phone-home').value = recordToEdit.guarantorPhoneHome;
+            document.getElementById('guarantor-phone-office').value = recordToEdit.guarantorPhoneOffice;
+            document.getElementById('guarantor-mobile-number').value = recordToEdit.guarantorMobileNumber;
+            document.getElementById('purchase-date').value = recordToEdit.purchaseDate;
+            document.getElementById('object-name').value = recordToEdit.objectName;
+            document.getElementById('receipt-no').value = recordToEdit.receiptNo;
+            document.getElementById('total-amount').value = recordToEdit.totalAmount;
+            document.getElementById('advance-payment').value = recordToEdit.advancePayment;
+            document.getElementById('monthly-installment').value = recordToEdit.monthlyInstallment;
+            document.getElementById('monthly-date').value = recordToEdit.monthlyDate;
+
+            // Add a hidden input to store the record ID
+            let idInput = document.getElementById('record-id');
+            if (!idInput) {
+                idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.id = 'record-id';
+                form.appendChild(idInput);
+            }
+            idInput.value = recordToEdit.id;
+
+            // Change the submit button text to "Update Record"
+            form.querySelector('button[type="submit"]').textContent = 'Update Record';
+
+            // Add a "Cancel" button
+            let cancelButton = document.getElementById('cancel-edit');
+            if (!cancelButton) {
+                cancelButton = document.createElement('button');
+                cancelButton.type = 'button';
+                cancelButton.id = 'cancel-edit';
+                cancelButton.className = 'btn btn-secondary mt-2';
+                cancelButton.textContent = 'Cancel Edit';
+                form.appendChild(cancelButton);
+
+                cancelButton.addEventListener('click', () => {
+                    form.reset();
+                    setAndLockAccountId();
+                    form.querySelector('button[type="submit"]').textContent = 'Save Record';
+                    const idInput = document.getElementById('record-id');
+                    if (idInput) {
+                        idInput.remove();
+                    }
+                    cancelButton.remove();
+                    window.scrollTo(0, 0);
+                });
+            }
+
+            // Scroll to the form
+            document.getElementById('add-customer-form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showCustomerDetails(recordId) {
+            const record = allRecords.find(r => r.id === recordId);
+            if (!record) return;
+
+            // Hide list view, show detail view
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('add-customer-form-section').style.display = 'none';
+            document.getElementById('customer-detail-view').style.display = 'block';
+
+            const detailView = document.getElementById('customer-detail-view');
+            detailView.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <button id="back-to-list" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary" id="edit-customer-from-detail">
+                        <i class="fas fa-pencil-alt me-1"></i> Edit Customer
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>${record.customerName}</h3>
+                        <p class="mb-0">A/C: ${record.accountNo}</p>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Father's Name:</strong> ${record.fatherName}</p>
+                        <p><strong>CNIC:</strong> ${record.cnic}</p>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h4>Transactions</h4>
+                    <button id="add-transaction-btn" class="btn btn-primary mb-3">
+                        <i class="fas fa-plus me-1"></i> Add Transaction
+                    </button>
+                    <div id="transaction-list">
+                        <!-- Transactions will be listed here -->
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('back-to-list').addEventListener('click', () => {
+                document.getElementById('main-content').style.display = 'block';
+                document.getElementById('add-customer-form-section').style.display = 'block';
+                document.getElementById('customer-detail-view').style.display = 'none';
+            });
+
+            document.getElementById('edit-customer-from-detail').addEventListener('click', () => {
+                document.getElementById('main-content').style.display = 'none';
+                document.getElementById('add-customer-form-section').style.display = 'block';
+                document.getElementById('customer-detail-view').style.display = 'none';
+                handleEdit(recordId);
+            });
+
+            document.getElementById('add-transaction-btn').addEventListener('click', () => {
+                showTransactionForm(recordId);
+            });
+
+            loadAndDisplayTransactions(recordId);
+        }
+
+        function showTransactionForm(customerId) {
+            document.getElementById('customer-detail-view').style.display = 'none';
+            document.getElementById('transaction-form-section').style.display = 'block';
+            document.getElementById('transaction-customer-id').value = customerId;
+        }
+
+        function loadAndDisplayTransactions(customerId) {
+            const transactionList = document.getElementById('transaction-list');
+            transactionList.innerHTML = '';
+
+            const dbTransaction = db.transaction([TX_STORE_NAME], 'readonly');
+            const transactionStore = dbTransaction.objectStore(TX_STORE_NAME);
+            const customerIdIndex = transactionStore.index('customerId');
+            const getRequest = customerIdIndex.getAll(customerId);
+
+            getRequest.onsuccess = () => {
+                const transactions = getRequest.result;
+                if (transactions.length === 0) {
+                    transactionList.innerHTML = '<p>No transactions yet.</p>';
+                    return;
+                }
+
+                transactions.forEach(tx => {
+                    const item = document.createElement('div');
+                    item.className = 'card mb-2';
+                    item.innerHTML = `
+                        <div class="card-body">
+                            <p><strong>Amount:</strong> ${tx.amount}</p>
+                            <p><strong>Date:</strong> ${tx.date}</p>
+                            ${tx.receipt ? `<p><a href="${tx.receipt}" target="_blank">View Receipt</a></p>` : ''}
+                        </div>
+                    `;
+                    transactionList.appendChild(item);
+                });
+            };
+        }
+
+
+        // --- Database Initialization ---
+
+        const request = indexedDB.open(DB_NAME, 3); // Increment database version to 3
+
+        // This event is triggered only when the database version changes.
+        request.onupgradeneeded = (event) => {
+            db = event.target.result;
+            // Create the object store if it doesn't already exist.
+            if (!db.objectStoreNames.contains(STORE_NAME)) {
+                db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
+            }
+
+            let transactionStore;
+            if (!db.objectStoreNames.contains(TX_STORE_NAME)) {
+                transactionStore = db.createObjectStore(TX_STORE_NAME, { keyPath: 'id', autoIncrement: true });
+            } else {
+                transactionStore = request.transaction.objectStore(TX_STORE_NAME); // Get existing store
+            }
+
+            // Ensure the customerId index exists
+            if (!transactionStore.indexNames.contains('customerId')) {
+                transactionStore.createIndex('customerId', 'customerId', { unique: false });
+            }
+        };
+
+        // This event is triggered when the database is successfully opened.
+        request.onsuccess = (event) => {
+            db = event.target.result;
+            loadAllRecords(); // Load all existing records from the database
+        };
+
+        // This event is triggered if there's an error opening the database.
+        request.onerror = (event) => {
+            console.error('Database error:', event.target.errorCode);
+            alert('Error initializing database. The application may not work correctly.');
+        };
+
+        // --- Event Listeners ---
+
+        recordsContainer.addEventListener('click', (event) => {
+            const customerItem = event.target.closest('.customer-list-item');
+            if (customerItem) {
+                const recordId = parseInt(customerItem.dataset.id, 10);
+                showCustomerDetails(recordId);
+            }
+        });
+
+        addCustomerFab.addEventListener('click', () => {
+            if (fabPopupMenu.style.display === 'none') {
+                fabPopupMenu.style.display = 'flex';
+            } else {
+                fabPopupMenu.style.display = 'none';
+            }
+        });
+
+        fabAddCustomer.addEventListener('click', () => {
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('add-customer-form-section').style.display = 'block';
+            document.getElementById('customer-detail-view').style.display = 'none';
+            document.getElementById('transaction-form-section').style.display = 'none';
+            document.getElementById('add-customer-form-section').scrollIntoView({ behavior: 'smooth' });
+            fabPopupMenu.style.display = 'none';
+        });
+
+        fabImport.addEventListener('click', () => {
+            if (confirm('Are you sure you want to import data? This will overwrite all existing data.')) {
+                importFileInput.click();
+            }
+            fabPopupMenu.style.display = 'none';
+        });
+
+        fabExport.addEventListener('click', () => {
+            if (!db) return;
+            const transaction = db.transaction([STORE_NAME, TX_STORE_NAME], 'readonly');
+            const customerStore = transaction.objectStore(STORE_NAME);
+            const txStore = transaction.objectStore(TX_STORE_NAME);
+
+            const getAllCustomersReq = customerStore.getAll();
+            getAllCustomersReq.onsuccess = () => {
+                const customers = getAllCustomersReq.result;
+                const getAllTxReq = txStore.getAll();
+                getAllTxReq.onsuccess = () => {
+                    const transactions = getAllTxReq.result;
+                    const backupData = {
+                        customers: customers,
+                        transactions: transactions
+                    };
+
+                    const dataStr = JSON.stringify(backupData, null, 2);
+                    const blob = new Blob([dataStr], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `digital-ledger-backup-${new Date().toISOString().split('T')[0]}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                };
+            };
+            fabPopupMenu.style.display = 'none';
+        });
+
+        importFileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const backupData = JSON.parse(e.target.result);
+                    if (!backupData.customers || !backupData.transactions) {
+                        throw new Error('Invalid backup file format.');
+                    }
+
+                    const transaction = db.transaction([STORE_NAME, TX_STORE_NAME], 'readwrite');
+                    const customerStore = transaction.objectStore(STORE_NAME);
+                    const txStore = transaction.objectStore(TX_STORE_NAME);
+
+                    customerStore.clear();
+                    txStore.clear();
+
+                    backupData.customers.forEach(customer => {
+                        customerStore.add(customer);
+                    });
+
+                    backupData.transactions.forEach(tx => {
+                        txStore.add(tx);
+                    });
+
+                    transaction.oncomplete = () => {
+                        alert('Data imported successfully!');
+                        loadAllRecords();
+                    };
+
+                } catch (error) {
+                    alert('Error importing data: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        });
+
+        /**
+         * Handles the form submission event.
+         */
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            const recordIdInput = document.getElementById('record-id');
+            const isUpdate = recordIdInput && recordIdInput.value;
+
+            // Create a record object from the form data.
+            const record = {
+                customerName: document.getElementById('customer-name').value,
+                accountNo: document.getElementById('account-no').value,
+                fatherName: document.getElementById('father-name').value,
+                nation: document.getElementById('nation').value,
+                dob: document.getElementById('dob').value,
+                cnic: document.getElementById('cnic').value,
+                currentAddress: document.getElementById('current-address').value,
+                employmentAddress: document.getElementById('employment-address').value,
+                phoneHome: document.getElementById('phone-home').value,
+                phoneOffice: document.getElementById('phone-office').value,
+                mobileNumber: document.getElementById('mobile-number').value,
+                guarantorName: document.getElementById('guarantor-name').value,
+                guarantorFatherName: document.getElementById('guarantor-father-name').value,
+                guarantorNation: document.getElementById('guarantor-nation').value,
+                guarantorDob: document.getElementById('guarantor-dob').value,
+                guarantorCnic: document.getElementById('guarantor-cnic').value,
+                guarantorCurrentAddress: document.getElementById('guarantor-current-address').value,
+                guarantorEmploymentAddress: document.getElementById('guarantor-employment-address').value,
+                guarantorPhoneHome: document.getElementById('guarantor-phone-home').value,
+                guarantorPhoneOffice: document.getElementById('guarantor-phone-office').value,
+                guarantorMobileNumber: document.getElementById('guarantor-mobile-number').value,
+                purchaseDate: document.getElementById('purchase-date').value,
+                objectName: document.getElementById('object-name').value,
+                receiptNo: document.getElementById('receipt-no').value,
+                totalAmount: parseFloat(document.getElementById('total-amount').value) || 0,
+                advancePayment: parseFloat(document.getElementById('advance-payment').value) || 0,
+                monthlyInstallment: document.getElementById('monthly-installment').value,
+                monthlyDate: document.getElementById('monthly-date').value,
+                createdAt: new Date().toISOString()
+            };
+
+            if (isUpdate) {
+                record.id = parseInt(recordIdInput.value, 10);
+            }
+
+            // Convert uploaded images to base64 strings for storage.
+            try {
+                record.customerPicture = await fileToBase64(document.getElementById('customer-picture').files[0]);
+                record.cnicPicture = await fileToBase64(document.getElementById('cnic-picture').files[0]);
+                record.guarantorPicture = await fileToBase64(document.getElementById('guarantor-picture').files[0]);
+                record.guarantorCnicPicture = await fileToBase64(document.getElementById('guarantor-cnic-picture').files[0]);
+            } catch (error) {
+                console.error("Error converting file to base64:", error);
+                alert("Could not process one of the images. Please try again.");
+                return;
+            }
+
+            // Save the new record to the database.
+            const transaction = db.transaction([STORE_NAME], 'readwrite');
+            const objectStore = transaction.objectStore(STORE_NAME);
+            
+            const request = isUpdate ? objectStore.put(record) : objectStore.add(record);
+
+            request.onsuccess = () => {
+                form.reset(); // Clear the form fields
+                setAndLockAccountId(); // Generate a new account ID for the next entry
+                loadAllRecords(); // Refresh the customer list
+                window.scrollTo(0, 0); // Scroll to the top of the page
+                alert(isUpdate ? 'Record updated successfully!' : 'Record saved successfully!');
+
+                // Reset form to "Add" mode
+                form.querySelector('button[type="submit"]').textContent = 'Save Record';
+                const idInput = document.getElementById('record-id');
+                if (idInput) {
+                    idInput.remove();
+                }
+                const cancelButton = document.getElementById('cancel-edit');
+                if (cancelButton) {
+                    cancelButton.remove();
+                }
+            };
+
+            request.onerror = (e) => {
+                console.error('Error saving record:', e.target.error);
+                alert('Error saving record: ' + e.target.error);
+            };
+        });
+
+        transactionForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const transaction = {
+                customerId: parseInt(document.getElementById('transaction-customer-id').value, 10),
+                amount: parseFloat(document.getElementById('transaction-amount').value),
+                date: document.getElementById('transaction-date').value,
+                receipt: await fileToBase64(document.getElementById('receipt-picture').files[0]),
+                createdAt: new Date().toISOString()
+            };
+
+            const dbTransaction = db.transaction([TX_STORE_NAME], 'readwrite');
+            const transactionStore = dbTransaction.objectStore(TX_STORE_NAME);
+            const addRequest = transactionStore.add(transaction);
+
+            addRequest.onsuccess = () => {
+                transactionForm.reset();
+                document.getElementById('transaction-form-section').style.display = 'none';
+                loadAllRecords(); // Refresh all records to update totalPaid
+                showCustomerDetails(transaction.customerId);
+                alert('Transaction saved successfully!');
+            };
+
+            addRequest.onerror = (e) => {
+                console.error('Error adding transaction:', e.target.error);
+                alert('Error saving transaction: ' + e.target.error);
+            };
+        });
+
+        document.getElementById('cancel-transaction').addEventListener('click', () => {
+            transactionForm.reset();
+            document.getElementById('transaction-form-section').style.display = 'none';
+            const customerId = parseInt(document.getElementById('transaction-customer-id').value, 10);
+            showCustomerDetails(customerId);
+        });
+
+        /**
+         * Fetches all records from the database and triggers a display update.
+         */
+        function loadAllRecords() {
+            if (!db) return;
+            const customerTransaction = db.transaction([STORE_NAME], 'readonly');
+            const customerStore = customerTransaction.objectStore(STORE_NAME);
+
+            const getAllCustomersReq = customerStore.getAll();
+            getAllCustomersReq.onsuccess = () => {
+                const customers = getAllCustomersReq.result;
+                allRecords = customers.sort((a, b) => {
+                    if (a.accountNo < b.accountNo) return -1;
+                    if (a.accountNo > b.accountNo) return 1;
+                    return 0;
+                });
+                displayRecords(allRecords); // Display customers first
+
+                // Now, load transactions and update totalPaid
+                const txTransaction = db.transaction([TX_STORE_NAME], 'readonly');
+                const txStore = txTransaction.objectStore(TX_STORE_NAME);
+                const getAllTxReq = txStore.getAll();
+                getAllTxReq.onsuccess = () => {
+                    const transactions = getAllTxReq.result;
+                    const paymentsByCustomer = {};
+                    transactions.forEach(tx => {
+                        if (!paymentsByCustomer[tx.customerId]) {
+                            paymentsByCustomer[tx.customerId] = 0;
+                        }
+                        paymentsByCustomer[tx.customerId] += tx.amount;
+                    });
+
+                    allRecords.forEach(customer => {
+                        customer.totalPaid = paymentsByCustomer[customer.id] || 0;
+                    });
+                    displayRecords(allRecords); // Re-display with updated totalPaid
+                };
+                getAllTxReq.onerror = (e) => {
+                    console.error('Error loading transactions for totalPaid:', e.target.error);
+                    // Even if transactions fail, customers are already displayed.
+                };
+                setAndLockAccountId();
+            };
+            getAllCustomersReq.onerror = (e) => {
+                console.error('Error loading customer records:', e.target.error);
+                alert('Error loading customer records. Please try again.');
+            };
+        }
+
+        /**
+         * Renders a list of records to the page.
+         * @param {Array} records - The array of customer records to display.
+         */
+        function displayRecords(records) {
+            recordsContainer.innerHTML = ''; // Clear the existing list
+            if (records.length === 0) {
+                recordsContainer.innerHTML = '<p class="text-center text-muted mt-4">No customers found. Click the "Add New Customer" button to add one.</p>';
+                return;
+            }
+
+            // Create and append a list item for each record.
+            records.forEach(record => {
+                const remainingBalance = (record.totalAmount || 0) - (record.advancePayment || 0) - (record.totalPaid || 0);
+                const balanceColor = remainingBalance > 0 ? 'text-danger' : 'text-success';
+
+                const item = document.createElement('a');
+                item.className = 'list-group-item list-group-item-action customer-list-item';
+                item.dataset.id = record.id;
+                item.innerHTML = `
+                    <div class="customer-info">
+                        <img src="${record.customerPicture || DEFAULT_PIC_SVG}" alt="Customer profile picture" class="customer-pic">
+                        <div>
+                            <h6 class="mb-0">${record.customerName}</h6>
+                            <small class="text-muted">${record.cnic}</small><br>
+                            <small class="text-muted">A/C: ${record.accountNo}</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="customer-balance me-3">
+                            <span class="${balanceColor}">Rs ${remainingBalance.toLocaleString()}</span>
+                        </div>
+                    </div>
+                `;
+                recordsContainer.appendChild(item);
+            });
+        }
+
+        /**
+         * Handles the search input to filter the displayed records.
+         */
+        searchBar.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredRecords = allRecords.filter(record => 
+                record.customerName.toLowerCase().includes(searchTerm) ||
+                record.cnic.toLowerCase().includes(searchTerm) ||
+                (record.accountNo && record.accountNo.toLowerCase().includes(searchTerm)) ||
+                (record.mobileNumber && record.mobileNumber.toLowerCase().includes(searchTerm))
+            );
+            displayRecords(filteredRecords);
+        });
+
+        
+
+        /**
+         * Utility function to convert a file to a base64 string.
+         * @param {File} file - The file to convert.
+         * @returns {Promise<string|null>} A promise that resolves with the base64 string or null.
+         */
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                if (!file) {
+                    resolve(null);
+                    return;
+                }
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+    });
+    </script>
+</body>
+</html>
