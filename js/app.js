@@ -1,0 +1,1 @@
+// Placeholder for app.js. Move the original content here if needed.

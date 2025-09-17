@@ -1,0 +1,1 @@
+// Placeholder for api/chat.js. Move the original content here if needed.
