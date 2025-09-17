@@ -1,0 +1,8 @@
+# Changelog
+
+- **2025-09-15:**
+  - Rebuilt the application as a single, self-contained HTML file to resolve issues with loading external CSS and JavaScript files.
+  - Simplified the UI by removing the modal dialog and placing the form directly on the page.
+  - Added a feature to automatically generate a unique Account No. for each new customer.
+  - Added comments to the code for better readability.
+  - Created this changelog and a README.md file.

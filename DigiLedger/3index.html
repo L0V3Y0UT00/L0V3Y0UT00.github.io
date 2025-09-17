@@ -1,3 +1,11 @@
+<!-- 
+Digital Ledger Application
+
+This is a self-contained HTML file that includes all the necessary CSS and JavaScript to run the application.
+It allows users to manage a list of customers, including their personal information, financial records, and guarantors.
+
+The application uses IndexedDB to store data locally in the user's browser, making it a completely offline-first application.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,37 +59,6 @@
             margin-top: 2rem;
             padding-top: 1.5rem;
         }
-
-        #add-customer-fab {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            z-index: 1000;
-        }
-
-        .fab-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column-reverse;
-            align-items: center;
-        }
-
-        .fab-popup-menu {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 10px;
-        }
-
-        .fab-menu-item {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 <body>
@@ -100,13 +77,19 @@
     <div class="container mt-4" id="main-content">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="h4">All Customers</h2>
+            <div>
+                <button id="export-button" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-download me-1"></i> Export Records
+                </button>
+                <a href="#add-customer-form-section" class="btn btn-sm btn-primary">
+                    <i class="fas fa-plus me-1"></i> Add New Customer
+                </a>
+            </div>
         </div>
         <div class="list-group" id="records-container">
             <!-- Customer list will be dynamically inserted here by JavaScript -->
         </div>
     </div>
-
-    
 
     <!-- Customer Detail View -->
     <div id="customer-detail-view" class="container mt-4" style="display: none;">
@@ -137,7 +120,7 @@
 
 
     <!-- Add New Customer Form Section -->
-    <div class="container mt-4" id="add-customer-form-section" style="display: none;">
+    <div class="container mt-4" id="add-customer-form-section">
         <h2 class="h4 mb-3">Add New Customer</h2>
         <form id="ledger-form">
             
@@ -201,24 +184,6 @@
         </form>
     </div>
 
-    <div class="fab-container">
-        <div class="fab-popup-menu" style="display: none;">
-            <button id="fab-add-customer" class="fab-menu-item btn btn-primary btn-sm rounded-circle shadow" title="Add Customer">
-                <i class="fas fa-user-plus"></i>
-            </button>
-            <button id="fab-import" class="fab-menu-item btn btn-info btn-sm rounded-circle shadow" title="Import Data">
-                <i class="fas fa-upload"></i>
-            </button>
-            <button id="fab-export" class="fab-menu-item btn btn-info btn-sm rounded-circle shadow" title="Export Data">
-                <i class="fas fa-download"></i>
-            </button>
-        </div>
-        <button id="fab-main" class="btn btn-primary btn-lg rounded-circle shadow">
-            <i class="fas fa-bars"></i>
-        </button>
-    </div>
-    <input type="file" id="import-file-input" accept=".json" style="display: none;">
-
     <!-- Embedded JavaScript Application -->
     <script>
     // Wait for the HTML document to be fully loaded before running the script
@@ -231,14 +196,6 @@
         const searchBar = document.getElementById('search-bar');
         const accountNoInput = document.getElementById('account-no');
         const transactionForm = document.getElementById('transaction-form');
-        const addCustomerFab = document.getElementById('fab-main');
-        const fabPopupMenu = document.querySelector('.fab-popup-menu');
-        const fabAddCustomer = document.getElementById('fab-add-customer');
-        const fabImport = document.getElementById('fab-import');
-        const fabExport = document.getElementById('fab-export');
-        const exportDataBtn = document.getElementById('export-data-btn');
-        
-        const importFileInput = document.getElementById('import-file-input');
 
 
         // --- Application State and Constants ---
@@ -432,9 +389,20 @@
             document.getElementById('transaction-customer-id').value = customerId;
         }
 
-        function loadAndDisplayTransactions(customerId) {
-            const transactionList = document.getElementById('transaction-list');
-            transactionList.innerHTML = '';
+        function loadAndDisplayTransactions(customerId, transactionList) {
+            const diagMsgElement = document.getElementById('temp-diag-msg');
+            if (diagMsgElement) {
+                diagMsgElement.innerHTML += '<br>DIAGNOSTIC: loadAndDisplayTransactions started.';
+            }
+
+            if (!transactionList) {
+                if (diagMsgElement) {
+                    diagMsgElement.innerHTML += '<br>DIAGNOSTIC: transactionList element NOT FOUND!';
+                }
+                console.error('transactionList element not found!');
+                return;
+            }
+            transactionList.innerHTML = '<p>Loading transactions...</p>'; // Temporary indicator
 
             const dbTransaction = db.transaction([TX_STORE_NAME], 'readonly');
             const transactionStore = dbTransaction.objectStore(TX_STORE_NAME);
@@ -443,8 +411,12 @@
 
             getRequest.onsuccess = () => {
                 const transactions = getRequest.result;
+                if (diagMsgElement) {
+                    diagMsgElement.innerHTML += `<br>DIAGNOSTIC: Transactions loaded. Count: ${transactions.length}`;
+                }
+                transactionList.innerHTML = ''; // Clear "Loading transactions..."
                 if (transactions.length === 0) {
-                    transactionList.innerHTML = '<p>No transactions yet.</p>';
+                    transactionList.innerHTML = '<p>No transactions yet. (Found 0 transactions)</p>'; // More verbose
                     return;
                 }
 
@@ -461,12 +433,19 @@
                     transactionList.appendChild(item);
                 });
             };
+            getRequest.onerror = (e) => {
+                if (diagMsgElement) {
+                    diagMsgElement.innerHTML += '<br>DIAGNOSTIC: Error loading transactions!';
+                }
+                console.error('Error getting transactions by customerId:', e.target.error);
+                transactionList.innerHTML = '<p class="text-danger">Error loading transactions. (Check console for details)</p>'; // More verbose
+            };
         }
 
 
         // --- Database Initialization ---
 
-        const request = indexedDB.open(DB_NAME, 3); // Increment database version to 3
+        const request = indexedDB.open(DB_NAME, 3);
 
         // This event is triggered only when the database version changes.
         request.onupgradeneeded = (event) => {
@@ -509,101 +488,6 @@
                 const recordId = parseInt(customerItem.dataset.id, 10);
                 showCustomerDetails(recordId);
             }
-        });
-
-        addCustomerFab.addEventListener('click', () => {
-            if (fabPopupMenu.style.display === 'none') {
-                fabPopupMenu.style.display = 'flex';
-            } else {
-                fabPopupMenu.style.display = 'none';
-            }
-        });
-
-        fabAddCustomer.addEventListener('click', () => {
-            document.getElementById('main-content').style.display = 'block';
-            document.getElementById('add-customer-form-section').style.display = 'block';
-            document.getElementById('customer-detail-view').style.display = 'none';
-            document.getElementById('transaction-form-section').style.display = 'none';
-            document.getElementById('add-customer-form-section').scrollIntoView({ behavior: 'smooth' });
-            fabPopupMenu.style.display = 'none';
-        });
-
-        fabImport.addEventListener('click', () => {
-            if (confirm('Are you sure you want to import data? This will overwrite all existing data.')) {
-                importFileInput.click();
-            }
-            fabPopupMenu.style.display = 'none';
-        });
-
-        fabExport.addEventListener('click', () => {
-            if (!db) return;
-            const transaction = db.transaction([STORE_NAME, TX_STORE_NAME], 'readonly');
-            const customerStore = transaction.objectStore(STORE_NAME);
-            const txStore = transaction.objectStore(TX_STORE_NAME);
-
-            const getAllCustomersReq = customerStore.getAll();
-            getAllCustomersReq.onsuccess = () => {
-                const customers = getAllCustomersReq.result;
-                const getAllTxReq = txStore.getAll();
-                getAllTxReq.onsuccess = () => {
-                    const transactions = getAllTxReq.result;
-                    const backupData = {
-                        customers: customers,
-                        transactions: transactions
-                    };
-
-                    const dataStr = JSON.stringify(backupData, null, 2);
-                    const blob = new Blob([dataStr], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `digital-ledger-backup-${new Date().toISOString().split('T')[0]}.json`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                };
-            };
-            fabPopupMenu.style.display = 'none';
-        });
-
-        importFileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const backupData = JSON.parse(e.target.result);
-                    if (!backupData.customers || !backupData.transactions) {
-                        throw new Error('Invalid backup file format.');
-                    }
-
-                    const transaction = db.transaction([STORE_NAME, TX_STORE_NAME], 'readwrite');
-                    const customerStore = transaction.objectStore(STORE_NAME);
-                    const txStore = transaction.objectStore(TX_STORE_NAME);
-
-                    customerStore.clear();
-                    txStore.clear();
-
-                    backupData.customers.forEach(customer => {
-                        customerStore.add(customer);
-                    });
-
-                    backupData.transactions.forEach(tx => {
-                        txStore.add(tx);
-                    });
-
-                    transaction.oncomplete = () => {
-                        alert('Data imported successfully!');
-                        loadAllRecords();
-                    };
-
-                } catch (error) {
-                    alert('Error importing data: ' + error.message);
-                }
-            };
-            reader.readAsText(file);
         });
 
         /**
@@ -713,7 +597,6 @@
             addRequest.onsuccess = () => {
                 transactionForm.reset();
                 document.getElementById('transaction-form-section').style.display = 'none';
-                loadAllRecords(); // Refresh all records to update totalPaid
                 showCustomerDetails(transaction.customerId);
                 alert('Transaction saved successfully!');
             };
@@ -736,47 +619,22 @@
          */
         function loadAllRecords() {
             if (!db) return;
-            const customerTransaction = db.transaction([STORE_NAME], 'readonly');
-            const customerStore = customerTransaction.objectStore(STORE_NAME);
+            const transaction = db.transaction([STORE_NAME], 'readonly');
+            const objectStore = transaction.objectStore(STORE_NAME);
+            const getAllRequest = objectStore.getAll();
 
-            const getAllCustomersReq = customerStore.getAll();
-            getAllCustomersReq.onsuccess = () => {
-                const customers = getAllCustomersReq.result;
-                allRecords = customers.sort((a, b) => {
+            getAllRequest.onsuccess = () => {
+                allRecords = getAllRequest.result.sort((a, b) => {
                     if (a.accountNo < b.accountNo) return -1;
                     if (a.accountNo > b.accountNo) return 1;
                     return 0;
                 });
-                displayRecords(allRecords); // Display customers first
-
-                // Now, load transactions and update totalPaid
-                const txTransaction = db.transaction([TX_STORE_NAME], 'readonly');
-                const txStore = txTransaction.objectStore(TX_STORE_NAME);
-                const getAllTxReq = txStore.getAll();
-                getAllTxReq.onsuccess = () => {
-                    const transactions = getAllTxReq.result;
-                    const paymentsByCustomer = {};
-                    transactions.forEach(tx => {
-                        if (!paymentsByCustomer[tx.customerId]) {
-                            paymentsByCustomer[tx.customerId] = 0;
-                        }
-                        paymentsByCustomer[tx.customerId] += tx.amount;
-                    });
-
-                    allRecords.forEach(customer => {
-                        customer.totalPaid = paymentsByCustomer[customer.id] || 0;
-                    });
-                    displayRecords(allRecords); // Re-display with updated totalPaid
-                };
-                getAllTxReq.onerror = (e) => {
-                    console.error('Error loading transactions for totalPaid:', e.target.error);
-                    // Even if transactions fail, customers are already displayed.
-                };
-                setAndLockAccountId();
+                displayRecords(allRecords);
+                setAndLockAccountId(); // Set the account ID after records are loaded
             };
-            getAllCustomersReq.onerror = (e) => {
-                console.error('Error loading customer records:', e.target.error);
-                alert('Error loading customer records. Please try again.');
+            getAllRequest.onerror = (e) => {
+                console.error('Error fetching records:', e.target.error);
+                alert('Error fetching records.');
             };
         }
 
@@ -793,7 +651,7 @@
 
             // Create and append a list item for each record.
             records.forEach(record => {
-                const remainingBalance = (record.totalAmount || 0) - (record.advancePayment || 0) - (record.totalPaid || 0);
+                const remainingBalance = (record.totalAmount || 0) - (record.advancePayment || 0);
                 const balanceColor = remainingBalance > 0 ? 'text-danger' : 'text-success';
 
                 const item = document.createElement('a');
@@ -801,7 +659,7 @@
                 item.dataset.id = record.id;
                 item.innerHTML = `
                     <div class="customer-info">
-                        <img src="${record.customerPicture || DEFAULT_PIC_SVG}" alt="Customer profile picture" class="customer-pic">
+                        <img src="${record.customerPicture || DEFAULT_PIC_SVG}" alt="Customer" class="customer-pic">
                         <div>
                             <h6 class="mb-0">${record.customerName}</h6>
                             <small class="text-muted">${record.cnic}</small><br>
@@ -832,7 +690,25 @@
             displayRecords(filteredRecords);
         });
 
-        
+        /**
+         * Handles the export button click to save all records as a JSON file.
+         */
+        exportButton.addEventListener('click', () => {
+            if (allRecords.length === 0) {
+                alert('No records to export.');
+                return;
+            }
+            const dataStr = JSON.stringify(allRecords, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `digital-ledger-backup-${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
 
         /**
          * Utility function to convert a file to a base64 string.
