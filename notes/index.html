@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -153,4 +153,198 @@
         }
     </script>
 </body>
+</html  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS Office MCQ Prep: Flowchart Notes</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+        }
+
+        .flow-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+
+        .level {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .node {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 10px;
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            min-width: 120px;
+            position: relative;
+        }
+
+        .sub-node {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border-radius: 10px;
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            min-width: 120px;
+            position: relative;
+        }
+
+        .leaf-node {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 10px;
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            min-width: 120px;
+            position: relative;
+        }
+
+        .connector {
+            height: 2px;
+            background-color: #7f8c8d;
+            width: 30px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .connector::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 100%;
+            width: 0;
+            height: 0;
+            border-left: 6px solid #7f8c8d;
+            border-top: 4px solid transparent;
+            border-bottom: 4px solid transparent;
+        }
+
+        .add-node-btn {
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5em;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        textarea {
+            width: 100%;
+            max-width: 300px;
+            height: 100px;
+            padding: 10px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            margin: 10px auto;
+            display: block;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MS Office MCQ Prep: Flowchart Notes</h1>
+    </header>
+
+    <div class="flow-container">
+        <!-- Level 1: MS Office -->
+        <div class="level">
+            <div class="node">MS Office</div>
+        </div>
+
+        <!-- Connector -->
+        <div class="connector"></div>
+
+        <!-- Level 2: Word, Excel, PowerPoint -->
+        <div class="level">
+            <div class="sub-node">MS Word</div>
+            <div class="sub-node">MS Excel</div>
+            <div class="sub-node">MS PowerPoint</div>
+        </div>
+
+        <!-- Connectors -->
+        <div class="level">
+            <div class="connector"></div>
+            <div class="connector"></div>
+            <div class="connector"></div>
+        </div>
+
+        <!-- Level 3: Text-based, Design-based, Page Keys -->
+        <div class="level">
+            <div class="leaf-node">Text-based Keys</div>
+            <div class="leaf-node">Design-based Keys</div>
+            <div class="leaf-node">Page Keys</div>
+            <div class="leaf-node">Formulas</div>
+            <div class="leaf-node">Charts</div>
+            <div class="leaf-node">Slide Transitions</div>
+        </div>
+    </div>
+
+    <textarea id="new-node-content" placeholder="Enter new concept or key..."></textarea>
+    <button class="add-node-btn" onclick="addNode()">+</button>
+
+    <script>
+        function addNode() {
+            const content = document.getElementById('new-node-content').value.trim();
+            if (!content) return;
+
+            const container = document.querySelector('.flow-container');
+            const newNode = document.createElement('div');
+            newNode.className = 'leaf-node';
+            newNode.textContent = content;
+
+            container.appendChild(newNode);
+            const connector = document.createElement('div');
+            connector.className = 'connector';
+            container.appendChild(connector);
+
+            document.getElementById('new-node-content').value = '';
+        }
+    </script>
+</body>
 </html>
+
