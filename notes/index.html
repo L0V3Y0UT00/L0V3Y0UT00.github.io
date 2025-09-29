@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Prep Notes</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .note-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1 1 300px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .note-card h2 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+
+        .note-card p {
+            margin-bottom: 0.5rem;
+        }
+
+        .note-card ul {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .note-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .add-note {
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+        }
+
+        .add-note:hover {
+            background-color: #45a049;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MCQ Prep Notes</h1>
+        <p>Simplify your learning and memorization</p>
+    </header>
+
+    <div class="container">
+        <div class="note-card">
+            <h2>Concept 1</h2>
+            <p>Write a brief explanation of the concept here.</p>
+            <ul>
+                <li>Key point 1</li>
+                <li>Key point 2</li>
+                <li>Key point 3</li>
+            </ul>
+        </div>
+
+        <div class="note-card">
+            <h2>Concept 2</h2>
+            <p>Write a brief explanation of the concept here.</p>
+            <ul>
+                <li>Key point 1</li>
+                <li>Key point 2</li>
+                <li>Key point 3</li>
+            </ul>
+        </div>
+
+        <div class="note-card">
+            <h2>Add New Note</h2>
+            <textarea id="new-note-content" rows="4" placeholder="Write your note here..."></textarea>
+            <button class="add-note" onclick="addNote()">Add Note</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 MCQ Prep Notes</p>
+    </footer>
+
+    <script>
+        function addNote() {
+            const content = document.getElementById('new-note-content').value;
+            if (content.trim() === '') return;
+
+            const container = document.querySelector('.container');
+            const newNote = document.createElement('div');
+            newNote.className = 'note-card';
+            newNote.innerHTML = `
+                <h2>New Concept</h2>
+                <p>${content.replace(/\n/g, '</p><p>')}</p>
+            `;
+            container.insertBefore(newNote, container.lastElementChild);
+
+            document.getElementById('new-note-content').value = '';
+        }
+    </script>
+</body>
+</html>
