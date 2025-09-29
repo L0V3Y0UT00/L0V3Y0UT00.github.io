@@ -1,10 +1,20 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCQ Prep Notes</title>
+    <title>MS Office MCQ Prep: Interactive Flowchart</title>
     <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #e74c3c;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
         * {
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,165 +23,8 @@
         }
 
         body {
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            padding: 1rem;
-        }
-
-        .note-card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            flex: 1 1 300px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .note-card h2 {
-            color: #4CAF50;
-            margin-bottom: 1rem;
-        }
-
-        .note-card p {
-            margin-bottom: 0.5rem;
-        }
-
-        .note-card ul {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
-        }
-
-        .note-card li {
-            margin-bottom: 0.5rem;
-        }
-
-        .add-note {
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 4px;
-            color: white;
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 0.5rem 1rem;
-            margin-top: 1rem;
-        }
-
-        .add-note:hover {
-            background-color: #45a049;
-        }
-
-        textarea {
-            width: 100%;
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            resize: vertical;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            margin-top: 1rem;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>MCQ Prep Notes</h1>
-        <p>Simplify your learning and memorization</p>
-    </header>
-
-    <div class="container">
-        <div class="note-card">
-            <h2>Concept 1</h2>
-            <p>Write a brief explanation of the concept here.</p>
-            <ul>
-                <li>Key point 1</li>
-                <li>Key point 2</li>
-                <li>Key point 3</li>
-            </ul>
-        </div>
-
-        <div class="note-card">
-            <h2>Concept 2</h2>
-            <p>Write a brief explanation of the concept here.</p>
-            <ul>
-                <li>Key point 1</li>
-                <li>Key point 2</li>
-                <li>Key point 3</li>
-            </ul>
-        </div>
-
-        <div class="note-card">
-            <h2>Add New Note</h2>
-            <textarea id="new-note-content" rows="4" placeholder="Write your note here..."></textarea>
-            <button class="add-note" onclick="addNote()">Add Note</button>
-        </div>
-    </div>
-
-    <footer>
-        <p>© 2025 MCQ Prep Notes</p>
-    </footer>
-
-    <script>
-        function addNote() {
-            const content = document.getElementById('new-note-content').value;
-            if (content.trim() === '') return;
-
-            const container = document.querySelector('.container');
-            const newNote = document.createElement('div');
-            newNote.className = 'note-card';
-            newNote.innerHTML = `
-                <h2>New Concept</h2>
-                <p>${content.replace(/\n/g, '</p><p>')}</p>
-            `;
-            container.insertBefore(newNote, container.lastElementChild);
-
-            document.getElementById('new-note-content').value = '';
-        }
-    </script>
-</body>
-</html  -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Office MCQ Prep: Flowchart Notes</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #f0f8ff;
-            color: #333;
+            background-color: #f5f7fa;
+            color: var(--dark);
             line-height: 1.6;
             padding: 20px;
         }
@@ -179,272 +32,86 @@
         header {
             text-align: center;
             margin-bottom: 30px;
+            animation: fadeIn 1s;
         }
 
         h1 {
-            color: #2c3e50;
-            font-size: 2.2em;
+            color: var(--dark);
+            font-size: 2.4em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
         }
 
         .flow-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            margin: 20px auto;
-            max-width: 1000px;
-        }
-
-        .level {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            width: 100%;
-        }
-
-        .node {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            border-radius: 10px;
-            padding: 15px;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            min-width: 120px;
-            position: relative;
-        }
-
-        .sub-node {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            border-radius: 10px;
-            padding: 15px;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            min-width: 120px;
-            position: relative;
-        }
-
-        .leaf-node {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            border-radius: 10px;
-            padding: 15px;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            min-width: 120px;
-            position: relative;
-        }
-
-        .connector {
-            height: 2px;
-            background-color: #7f8c8d;
-            width: 30px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .connector::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: 100%;
-            width: 0;
-            height: 0;
-            border-left: 6px solid #7f8c8d;
-            border-top: 4px solid transparent;
-            border-bottom: 4px solid transparent;
-        }
-
-        .add-node-btn {
-            background-color: #9b59b6;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 1.5em;
-            cursor: pointer;
-            margin: 20px auto;
-            display: block;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        textarea {
-            width: 100%;
-            max-width: 300px;
-            height: 100px;
-            padding: 10px;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
-            margin: 10px auto;
-            display: block;
-            resize: vertical;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>MS Office MCQ Prep: Flowchart Notes</h1>
-    </header>
-
-    <div class="flow-container">
-        <!-- Level 1: MS Office -->
-        <div class="level">
-            <div class="node">MS Office</div>
-        </div>
-
-        <!-- Connector -->
-        <div class="connector"></div>
-
-        <!-- Level 2: Word, Excel, PowerPoint -->
-        <div class="level">
-            <div class="sub-node">MS Word</div>
-            <div class="sub-node">MS Excel</div>
-            <div class="sub-node">MS PowerPoint</div>
-        </div>
-
-        <!-- Connectors -->
-        <div class="level">
-            <div class="connector"></div>
-            <div class="connector"></div>
-            <div class="connector"></div>
-        </div>
-
-        <!-- Level 3: Text-based, Design-based, Page Keys -->
-        <div class="level">
-            <div class="leaf-node">Text-based Keys</div>
-            <div class="leaf-node">Design-based Keys</div>
-            <div class="leaf-node">Page Keys</div>
-            <div class="leaf-node">Formulas</div>
-            <div class="leaf-node">Charts</div>
-            <div class="leaf-node">Slide Transitions</div>
-        </div>
-    </div>
-
-    <textarea id="new-node-content" placeholder="Enter new concept or key..."></textarea>
-    <button class="add-node-btn" onclick="addNode()">+</button>
-
-    <script>
-        function addNode() {
-            const content = document.getElementById('new-node-content').value.trim();
-            if (!content) return;
-
-            const container = document.querySelector('.flow-container');
-            const newNode = document.createElement('div');
-            newNode.className = 'leaf-node';
-            newNode.textContent = content;
-
-            container.appendChild(newNode);
-            const connector = document.createElement('div');
-            connector.className = 'connector';
-            container.appendChild(connector);
-
-            document.getElementById('new-node-content').value = '';
-        }
-    </script>
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Office MCQ Prep: Interactive Flowchart   v 3
-    </title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #f0f8ff;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: #2c3e50;
-            font-size: 2.2em;
-        }
-
-        .flow-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin: 20px auto;
+            gap: 30px;
+            margin: 30px auto;
             max-width: 1200px;
         }
 
         .level {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             width: 100%;
             flex-wrap: wrap;
         }
 
         .node {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            border-radius: 10px;
-            padding: 15px;
+            background: linear-gradient(135deg, var(--primary), #2980b9);
+            border-radius: 12px;
+            padding: 15px 25px;
             color: white;
-            font-weight: bold;
+            font-weight: 600;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            min-width: 120px;
-            position: relative;
+            box-shadow: var(--shadow);
+            min-width: 140px;
             cursor: default;
+            transition: var(--transition);
         }
 
         .sub-node {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            border-radius: 10px;
-            padding: 15px;
+            background: linear-gradient(135deg, var(--secondary), #27ae60);
+            border-radius: 12px;
+            padding: 15px 25px;
             color: white;
-            font-weight: bold;
+            font-weight: 600;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            min-width: 120px;
-            position: relative;
+            box-shadow: var(--shadow);
+            min-width: 140px;
             cursor: default;
+            transition: var(--transition);
         }
 
         .leaf-node {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            border-radius: 10px;
-            padding: 15px;
+            background: linear-gradient(135deg, var(--accent), #c0392b);
+            border-radius: 12px;
+            padding: 15px 25px;
             color: white;
-            font-weight: bold;
+            font-weight: 600;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            min-width: 120px;
-            position: relative;
+            box-shadow: var(--shadow);
+            min-width: 140px;
             cursor: pointer;
+            transition: var(--transition);
+            position: relative;
         }
 
         .leaf-node:hover {
-            background: linear-gradient(135deg, #c0392b, #a82d21);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
         }
 
         .connector {
             height: 2px;
-            background-color: #7f8c8d;
-            width: 30px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 40px;
             margin: 0 auto;
             position: relative;
         }
@@ -452,94 +119,102 @@
         .connector::after {
             content: '';
             position: absolute;
-            top: -2px;
+            top: -3px;
             left: 100%;
             width: 0;
             height: 0;
-            border-left: 6px solid #7f8c8d;
-            border-top: 4px solid transparent;
-            border-bottom: 4px solid transparent;
+            border-left: 8px solid var(--secondary);
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
         }
 
-        .add-node-btn {
-            background-color: #9b59b6;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            font-size: 1.5em;
-            cursor: pointer;
-            margin: 20px auto;
-            display: block;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        textarea {
+        .key-table-container {
+            display: none;
             width: 100%;
-            max-width: 300px;
-            height: 100px;
-            padding: 10px;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
-            margin: 10px auto;
-            display: block;
-            resize: vertical;
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            animation: fadeIn 0.5s;
         }
 
         .key-table {
-            display: none;
             width: 100%;
-            max-width: 600px;
-            margin: 10px auto;
             border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .key-table th, .key-table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
         }
 
         .key-table th {
-            background-color: #3498db;
+            background: var(--primary);
             color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .key-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
         }
 
         .key-table tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f8f9fa;
         }
 
         .key-table tr:hover {
-            background-color: #e3f2fd;
+            background-color: #e9f7fe;
+        }
+
+        .add-key-row {
+            background-color: #f0f8ff !important;
+        }
+
+        .add-key-row input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 4px 0;
         }
 
         .add-key-btn {
-            background-color: #2ecc71;
+            background: var(--secondary);
             color: white;
             border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
+            border-radius: 6px;
+            padding: 8px 15px;
             cursor: pointer;
-            margin: 5px;
+            transition: var(--transition);
         }
 
-        .key-input {
-            width: calc(100% - 80px);
-            padding: 5px;
-            margin: 5px;
-            border: 1px solid #bdc3c7;
-            border-radius: 4px;
+        .add-key-btn:hover {
+            background: #27ae60;
+        }
+
+        .delete-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>MS Office MCQ Prep: Interactive Flowchart</h1>
+        <h1>MS Office MCQ Prep</h1>
+        <p class="subtitle">Interactive Flowchart for Memorizing Key Concepts</p>
     </header>
 
     <div class="flow-container">
@@ -567,151 +242,256 @@
 
         <!-- Level 3: Leaf Nodes -->
         <div class="level">
-            <div class="leaf-node" onclick="toggleTable('word-text-keys')">Text-based Keys</div>
-            <div class="leaf-node" onclick="toggleTable('word-design-keys')">Design-based Keys</div>
-            <div class="leaf-node" onclick="toggleTable('excel-formulas')">Formulas</div>
-            <div class="leaf-node" onclick="toggleTable('excel-charts')">Charts</div>
-            <div class="leaf-node" onclick="toggleTable('ppt-transitions')">Slide Transitions</div>
-            <div class="leaf-node" onclick="toggleTable('ppt-page-keys')">Page Keys</div>
+            <div class="leaf-node" onclick="toggleTable('word-text-keys-container')">Text-based Keys</div>
+            <div class="leaf-node" onclick="toggleTable('word-design-keys-container')">Design-based Keys</div>
+            <div class="leaf-node" onclick="toggleTable('excel-formulas-container')">Formulas</div>
+            <div class="leaf-node" onclick="toggleTable('excel-charts-container')">Charts</div>
+            <div class="leaf-node" onclick="toggleTable('ppt-transitions-container')">Slide Transitions</div>
+            <div class="leaf-node" onclick="toggleTable('ppt-page-keys-container')">Page Keys</div>
         </div>
 
         <!-- Tables for each leaf node -->
-        <table class="key-table" id="word-text-keys">
-            <thead>
-                <tr>
-                    <th>Key</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" class="key-input" id="word-text-key" placeholder="Enter key"></td>
-                    <td><input type="text" class="key-input" id="word-text-desc" placeholder="Enter description"></td>
-                    <td><button class="add-key-btn" onclick="addKey('word-text-keys')">Add</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="key-table-container" id="word-text-keys-container">
+            <table class="key-table" id="word-text-keys">
+                <thead>
+                    <tr>
+                        <th>Shortcut</th>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ctrl + B</td>
+                        <td>Bold</td>
+                        <td>Makes selected text bold.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>Ctrl + I</td>
+                        <td>Italic</td>
+                        <td>Makes selected text italic.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr class="add-key-row">
+                        <td><input type="text" id="word-text-key" placeholder="Shortcut"></td>
+                        <td><input type="text" id="word-text-action" placeholder="Action"></td>
+                        <td><input type="text" id="word-text-desc" placeholder="Description"></td>
+                        <td><button class="add-key-btn" onclick="addKey('word-text-keys')">Add</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <table class="key-table" id="word-design-keys">
-            <thead>
-                <tr>
-                    <th>Key</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" class="key-input" id="word-design-key" placeholder="Enter key"></td>
-                    <td><input type="text" class="key-input" id="word-design-desc" placeholder="Enter description"></td>
-                    <td><button class="add-key-btn" onclick="addKey('word-design-keys')">Add</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="key-table-container" id="word-design-keys-container">
+            <table class="key-table" id="word-design-keys">
+                <thead>
+                    <tr>
+                        <th>Shortcut</th>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alt + N, P</td>
+                        <td>Insert Picture</td>
+                        <td>Inserts a picture from your device.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>Alt + N, S, H</td>
+                        <td>Insert Shape</td>
+                        <td>Inserts a shape into the document.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr class="add-key-row">
+                        <td><input type="text" id="word-design-key" placeholder="Shortcut"></td>
+                        <td><input type="text" id="word-design-action" placeholder="Action"></td>
+                        <td><input type="text" id="word-design-desc" placeholder="Description"></td>
+                        <td><button class="add-key-btn" onclick="addKey('word-design-keys')">Add</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <table class="key-table" id="excel-formulas">
-            <thead>
-                <tr>
-                    <th>Formula</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" class="key-input" id="excel-formula" placeholder="Enter formula"></td>
-                    <td><input type="text" class="key-input" id="excel-formula-desc" placeholder="Enter description"></td>
-                    <td><button class="add-key-btn" onclick="addKey('excel-formulas')">Add</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="key-table-container" id="excel-formulas-container">
+            <table class="key-table" id="excel-formulas">
+                <thead>
+                    <tr>
+                        <th>Formula</th>
+                        <th>Example</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>=SUM()</td>
+                        <td>=SUM(A1:A10)</td>
+                        <td>Adds all the numbers in a range of cells.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>=AVERAGE()</td>
+                        <td>=AVERAGE(A1:A10)</td>
+                        <td>Returns the average of the numbers in a range.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr class="add-key-row">
+                        <td><input type="text" id="excel-formula" placeholder="Formula"></td>
+                        <td><input type="text" id="excel-example" placeholder="Example"></td>
+                        <td><input type="text" id="excel-formula-desc" placeholder="Description"></td>
+                        <td><button class="add-key-btn" onclick="addKey('excel-formulas')">Add</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <table class="key-table" id="excel-charts">
-            <thead>
-                <tr>
-                    <th>Chart Type</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" class="key-input" id="excel-chart" placeholder="Enter chart type"></td>
-                    <td><input type="text" class="key-input" id="excel-chart-desc" placeholder="Enter description"></td>
-                    <td><button class="add-key-btn" onclick="addKey('excel-charts')">Add</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="key-table-container" id="excel-charts-container">
+            <table class="key-table" id="excel-charts">
+                <thead>
+                    <tr>
+                        <th>Chart Type</th>
+                        <th>Shortcut</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Column Chart</td>
+                        <td>Alt + N, C</td>
+                        <td>Inserts a column chart.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>Pie Chart</td>
+                        <td>Alt + N, Q</td>
+                        <td>Inserts a pie chart.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr class="add-key-row">
+                        <td><input type="text" id="excel-chart-type" placeholder="Chart Type"></td>
+                        <td><input type="text" id="excel-chart-shortcut" placeholder="Shortcut"></td>
+                        <td><input type="text" id="excel-chart-desc" placeholder="Description"></td>
+                        <td><button class="add-key-btn" onclick="addKey('excel-charts')">Add</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <table class="key-table" id="ppt-transitions">
-            <thead>
-                <tr>
-                    <th>Transition</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" class="key-input" id="ppt-transition" placeholder="Enter transition"></td>
-                    <td><input type="text" class="key-input" id="ppt-transition-desc" placeholder="Enter description"></td>
-                    <td><button class="add-key-btn" onclick="addKey('ppt-transitions')">Add</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="key-table-container" id="ppt-transitions-container">
+            <table class="key-table" id="ppt-transitions">
+                <thead>
+                    <tr>
+                        <th>Transition</th>
+                        <th>Shortcut</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fade</td>
+                        <td>Transition Tab > Fade</td>
+                        <td>Smoothly fades between slides.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>Morph</td>
+                        <td>Transition Tab > Morph</td>
+                        <td>Smoothly animates changes between slides.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr class="add-key-row">
+                        <td><input type="text" id="ppt-transition" placeholder="Transition"></td>
+                        <td><input type="text" id="ppt-transition-shortcut" placeholder="Shortcut"></td>
+                        <td><input type="text" id="ppt-transition-desc" placeholder="Description"></td>
+                        <td><button class="add-key-btn" onclick="addKey('ppt-transitions')">Add</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-        <table class="key-table" id="ppt-page-keys">
-            <thead>
-                <tr>
-                    <th>Key</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" class="key-input" id="ppt-page-key" placeholder="Enter key"></td>
-                    <td><input type="text" class="key-input" id="ppt-page-desc" placeholder="Enter description"></td>
-                    <td><button class="add-key-btn" onclick="addKey('ppt-page-keys')">Add</button></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="key-table-container" id="ppt-page-keys-container">
+            <table class="key-table" id="ppt-page-keys">
+                <thead>
+                    <tr>
+                        <th>Shortcut</th>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ctrl + M</td>
+                        <td>New Slide</td>
+                        <td>Inserts a new slide.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr>
+                        <td>Ctrl + D</td>
+                        <td>Duplicate Slide</td>
+                        <td>Duplicates the selected slide.</td>
+                        <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+                    </tr>
+                    <tr class="add-key-row">
+                        <td><input type="text" id="ppt-page-key" placeholder="Shortcut"></td>
+                        <td><input type="text" id="ppt-page-action" placeholder="Action"></td>
+                        <td><input type="text" id="ppt-page-desc" placeholder="Description"></td>
+                        <td><button class="add-key-btn" onclick="addKey('ppt-page-keys')">Add</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script>
-        function toggleTable(tableId) {
-            const table = document.getElementById(tableId);
-            if (table.style.display === 'table') {
-                table.style.display = 'none';
+        function toggleTable(containerId) {
+            const container = document.getElementById(containerId);
+            const allContainers = document.querySelectorAll('.key-table-container');
+
+            allContainers.forEach(c => {
+                if (c.id !== containerId) c.style.display = 'none';
+            });
+
+            if (container.style.display === 'block') {
+                container.style.display = 'none';
             } else {
-                // Hide all tables
-                document.querySelectorAll('.key-table').forEach(t => t.style.display = 'none');
-                // Show selected table
-                table.style.display = 'table';
+                container.style.display = 'block';
             }
         }
 
         function addKey(tableId) {
             const table = document.getElementById(tableId);
             const tbody = table.querySelector('tbody');
-            const inputs = tbody.querySelectorAll('input');
-            const key = inputs[0].value.trim();
-            const desc = inputs[1].value.trim();
+            const inputs = tbody.querySelectorAll('.add-key-row input');
+            const isEmpty = Array.from(inputs).some(input => input.value.trim() === '');
 
-            if (key && desc) {
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${key}</td>
-                    <td>${desc}</td>
-                    <td><button class="add-key-btn" onclick="this.parentElement.parentElement.remove()">Delete</button></td>
-                `;
-                tbody.insertBefore(newRow, tbody.firstElementChild.nextSibling);
-                inputs[0].value = '';
-                inputs[1].value = '';
+            if (isEmpty) {
+                alert('Please fill in all fields.');
+                return;
             }
+
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${inputs[0].value}</td>
+                <td>${inputs[1].value}</td>
+                <td>${inputs[2].value}</td>
+                <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
+            `;
+
+            tbody.insertBefore(newRow, tbody.lastElementChild);
+            inputs.forEach(input => input.value = '');
+        }
+
+        function deleteRow(button) {
+            button.parentElement.parentElement.remove();
         }
     </script>
 </body>
 </html>
-
