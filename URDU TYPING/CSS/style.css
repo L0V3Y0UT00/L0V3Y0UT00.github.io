@@ -1,0 +1,416 @@
+/* UNIVERSAL */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    direction: rtl;
+}
+
+:root {
+    font-family: 'Scheherazade New', serif;
+    font-size: 10px;
+    --pColor: #651fff;
+    --pLight: #a255ff;
+    --pDark: #0100ca;
+}
+
+body {
+    width: 100%;
+    float: right;
+    display: grid;
+    grid-template: repeat(3, auto) / 3fr 1fr;
+}
+
+header,
+footer {
+    grid-column: 1 / -1;
+}
+
+main,
+aside {
+    height: 100vh;
+}
+
+header,
+aside {
+    color: white;
+    background-color: var(--pColor);
+}
+
+h1 {
+    font-size: 3.2rem;
+    word-spacing: -0.8rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 1.8rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+p,
+textarea {
+    width: 100%;
+    float: right;
+    font-size: 2.5rem;
+    font-family: serif;
+    resize: none;
+    overflow: auto;
+}
+
+
+/* TOOLTIP */
+
+.tooltip {
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: max-content;
+    padding: 0 12px 2px;
+    visibility: hidden;
+    font-size: 1.5rem;
+    background-color: #a155ff91;
+    border-radius: 3px;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, .4));
+    opacity: 0;
+    transition: all .3s 200ms;
+}
+
+.tooltip::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%);
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 10px solid #a155ff91;
+}
+
+.has-tooltip {
+    position: relative;
+}
+
+.has-tooltip:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+
+/* HEADER */
+
+header {
+    padding: 20px 50px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .4));
+}
+
+
+/* NAV */
+
+header nav {
+    position: relative;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav a {
+    display: block;
+    padding: 5px;
+    font-size: 2rem;
+}
+
+header nav a:first-child {
+    margin-left: 30px;
+}
+
+
+/* SHARE OPTIONS */
+
+header nav .share-options {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    transform-origin: top;
+    width: 180px;
+    padding: 10px;
+    visibility: hidden;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    border-radius: 3px;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, .3));
+    z-index: 100;
+    opacity: 0;
+}
+
+
+/* TOGGLE CLASS */
+
+header nav .open-share {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+
+/* SINGLE SHARE OPTION */
+
+header nav .share-options .share {
+    width: max-content;
+    padding: 5px 9px;
+    color: white;
+    background-color: var(--pLight);
+    border: 1px solid var(--pLight);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+header nav .share-options .share:hover {
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, .3));
+}
+
+header nav .share-options input {
+    width: 122px;
+    padding: 5px;
+    border: 1px solid var(--pLight);
+    border-radius: 3px;
+    outline: none;
+}
+
+
+/* ASIDE */
+
+aside {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);
+}
+
+aside .wrapper {
+    margin: 10px auto;
+    padding: 10px 0;
+    width: 100%;
+    line-height: 3rem;
+    word-spacing: -0.3rem;
+}
+
+aside .wrapper:not(:last-child) {
+    border-bottom: 1px solid var(--pLight);
+}
+
+#selectTime {
+    margin: 20px auto;
+    padding: 6px 20px;
+    font-family: 'Scheherazade New', serif;
+    font-size: 1.5rem;
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#selectTime option {
+    color: black;
+}
+
+aside .restart {
+    margin-top: 30px;
+}
+
+aside .restart_btn {
+    padding: 3px 18px;
+    font-family: 'Scheherazade New', serif;
+    font-size: 1.5rem;
+    color: white;
+    background-color: var(--pLight);
+    border: 1px solid var(--pLight);
+    border-radius: 4px;
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, .5));
+    cursor: pointer;
+    transition: all .2s;
+}
+
+aside .restart_btn:hover {
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, .3));
+}
+
+.cpm,
+.wpm,
+.accuracy,
+.errors,
+.restart {
+    display: none;
+}
+
+
+/* MAIN */
+
+main {
+    width: 100%;
+    height: 100%;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
+}
+
+main .test_para {
+    height: 50%;
+    padding-top: 30px;
+}
+
+main p {
+    width: 100%;
+    height: 100%;
+}
+
+main textarea {
+    height: 50%;
+    margin: 20px auto;
+    padding: 20px 10px 10px;
+    border: none;
+    border-top: 1px solid grey;
+    outline: none;
+}
+
+
+/* INCORRECT */
+
+.incorrect_char {
+    color: red;
+    text-decoration: underline;
+}
+
+
+/* CORRECT */
+
+.correct_char {
+    color: darkgreen;
+    opacity: .3;
+}
+
+
+/* MOBILE MESSAGE */
+
+.mobile-message {
+    display: none;
+}
+
+
+/* FOOTER */
+
+footer {
+    padding: 5px 0 0;
+    text-align: center;
+    color: white;
+    background-image: linear-gradient(to left, #651fff 50%, #0100ca);
+}
+
+footer ul {
+    padding: 20px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+footer ul li {
+    transition: all .2s;
+}
+
+footer ul li:hover {
+    transform: scale(1.05);
+}
+
+footer ul a {
+    font-size: 1.8rem;
+}
+
+footer p {
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Scheherazade New', serif;
+    font-size: 1.3rem;
+    background-color: rgb(40, 40, 40);
+}
+
+footer span {
+    margin-left: 8px;
+    font-size: 1.9rem;
+}
+
+@media screen and (max-width:600px) {
+     :root {
+        font-size: 8px;
+    }
+    body {
+        position: relative;
+        height: 100vh;
+        display: block;
+    }
+    header {
+        padding: 10px 25px;
+    }
+    header nav .share-options {
+        left: 90%;
+    }
+    main,
+    aside {
+        display: none;
+    }
+    .mobile-message {
+        width: 100%;
+        height: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 50px;
+    }
+    .mobile-message h2 {
+        width: 100%;
+    }
+    footer {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:400px) {
+    .mobile-message {
+        padding: 0 30px;
+    }
+}
