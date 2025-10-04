@@ -408,6 +408,15 @@ footer span {
         width: 100%;
     }
 }
+/* google  font*/
+
+
+.noto-nastaliq-urdu-<uniquifier> {
+  font-family: "Noto Nastaliq Urdu", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
 
 @media screen and (max-width:400px) {
     .mobile-message {
