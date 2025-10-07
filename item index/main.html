@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Table</title>
+<style>
+:root {
+  --accent: #2196f3;
+  --border: #ddd;
+  --bg: #f5f8ff;
+  --table-bg: #fff;
+  --header-bg: #e3f2fd;
+  --highlight: #ffeb3b;
+  --active: #bbdefb;
+  --text: #333;
+}
+body {
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 30px;
+}
+input, .search-label {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 15px;
+  transition: all .2s ease;
+}
+#search-input {
+  width: 100%;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+#search-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 6px rgba(33,150,243,0.4);
+}
+.search-label {
+  cursor: pointer;
+  margin: 3px;
+  background: #fff;
+  color: var(--text);
+}
+.search-label:hover {
+  background: var(--header-bg);
+}
+.search-label.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(33,150,243,0.4);
+}
+table {
+  width: 100%;
+  margin-top: 22px;
+  border-collapse: collapse;
+  background: var(--table-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: 10px;
+  text-align: left;
+  word-wrap: break-word;
+}
+th {
+  background: var(--header-bg);
+  color: #000;
+}
+tr:hover td {
+  background: #f1faff;
+}
+.highlight {
+  background: var(--highlight);
+}
+@media (max-width:600px) {
+  th, td { font-size: 14px; padding: 6px; }
+  .search-label { font-size: 13px; padding: 6px; }
+}
+</style>
+</head>
+<body>
+  <input type="text" id="search-input" placeholder="Search... v23">
+  <div id="search-labels">
+    <label class="search-label active" id="code-label">Code</label>
+    <label class="search-label" id="description-label">Description</label>
+    <label class="search-label" id="retail-label">Retail Price</label>
+  </div>
+
+  <table id="search-table">
+    <thead>
+      <tr><th>CODE</th><th>DESCRIPTION</th><th>RETAIL</th></tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+
+<script>
+const csvData=`CODE,DESCRIPTION,RETAIL,
+100.,100. DYING,4,
+10011.,10011. Ladies Shawl 11/8. Pc.,2050,
+10027.,10027. Wash n Wear TIKTOK.BLACK Pc.,1100,
+10028.,10028. Cotton TIKTOK.EMB Suit,1350,
+10038.,10038. LUNGI 42/3. Pc.,550,
+10041.,10041. Safa 40/1. Pc.,300,
+10042.,10042. Safa 40/2.karanti Pc.,525,`;
+
+const tableBody=document.getElementById("table-body");
+const data=csvData.trim().split("\n").slice(1).map(r=>{
+  const [code,description,retail]=r.split(",");
+  return {code,description,retail};
+});
+
+let currentField="code";
+const render=(query="")=>{
+  tableBody.innerHTML="";
+  data.filter(d=>d[currentField].toLowerCase().includes(query.toLowerCase()))
+  .forEach(d=>{
+    const tr=document.createElement("tr");
+    ["code","description","retail"].forEach(k=>{
+      const td=document.createElement("td");
+      td.innerHTML=query?d[k].replace(new RegExp(query,"gi"),m=>`<span class='highlight'>${m}</span>`):d[k];
+      tr.appendChild(td);
+    });
+    tableBody.appendChild(tr);
+  });
+};
+render();
+
+document.getElementById("search-input").addEventListener("input",e=>render(e.target.value));
+["code","description","retail"].forEach(f=>{
+  document.getElementById(`${f}-label`).addEventListener("click",()=>{
+    currentField=f;
+    document.querySelectorAll(".search-label").forEach(l=>l.classList.remove("active"));
+    document.getElementById(`${f}-label`).classList.add("active");
+  });
+});
+</script>
+</body>
+</html>
